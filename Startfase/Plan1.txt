@@ -11,5 +11,4 @@ Kravspesifikasjon:
     - R  Read   ( Både kunde og kontaktpersoner blir printet ut )
     - U  Update ( Blyant på siden av brukerene for å redigere )
     - D  Delete ( Søpplekasse på siden av brukerene for å slette )
-    - Logging ( Alle funksjoner kan bli brukt uten å logge inn, utenom redigering )
-    
+    - Logging ( Alle funksjoner kan bli brukt uten å logge inn, utenom redigering ).
