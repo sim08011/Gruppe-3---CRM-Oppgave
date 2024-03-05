@@ -8,8 +8,7 @@
 <body>
     <?php
         include 'nav.php';
-        include 'header.php';
-    ?>
+    ?>  
     
 </body>
 </html>
