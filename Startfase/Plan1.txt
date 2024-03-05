@@ -1,0 +1,4 @@
+- Lage skisse for database
+- Sette opp database i XAMPP
+- Finne ut hvordan vi skal utforme nettsiden
+- Tildele oppgaver
