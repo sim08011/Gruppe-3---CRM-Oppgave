@@ -5,3 +5,11 @@
 - Lage kravspesifikasjon 
 - Lage en Er-modell av databasen
 - Få det ut på Subdomene
+
+Kravspesifikasjon:
+    - C  Create ( Legg til knapp Read side )
+    - R  Read   ( Både kunde og kontaktpersoner blir printet ut )
+    - U  Update ( Blyant på siden av brukerene for å redigere )
+    - D  Delete ( Søpplekasse på siden av brukerene for å slette )
+    - Logging ( Alle funksjoner kan bli brukt uten å logge inn, utenom redigering )
+    
