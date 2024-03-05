@@ -3,4 +3,4 @@
 - Finne ut hvordan vi skal utforme nettsiden
 - Tildele oppgaver
 - Lage kravspesifikasjon 
-- Lage en Er modell av databasen
+- Lage en Er-modell av databasen
