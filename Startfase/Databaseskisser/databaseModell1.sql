@@ -33,20 +33,20 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `crm_database`.`kunde`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `crm_database`.`kunde` (
-  `kundeID` INT NOT NULL AUTO_INCREMENT,
-  `navn` VARCHAR(45) NOT NULL,
-  `epost` VARCHAR(100) NOT NULL,
-  `tlf` VARCHAR(12) NOT NULL,
-  `postSted_postnummer` VARCHAR(4) NOT NULL,
-  PRIMARY KEY (`kundeID`),
-  INDEX `fk_kunde_postSted1_idx` (`postSted_postnummer` ASC) VISIBLE,
-  CONSTRAINT `fk_kunde_postSted1`
-    FOREIGN KEY (`postSted_postnummer`)
-    REFERENCES `crm_database`.`postSted` (`postnummer`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `crm_database`.`kunde` (   
+  `kundeID` INT NOT NULL AUTO_INCREMENT,   
+  `navn` VARCHAR(45) NOT NULL,   
+  `epost` VARCHAR(100) NOT NULL,   
+  `tlf` VARCHAR(12) NOT NULL,   
+  `postSted_postnummer` VARCHAR(4) NOT NULL,   
+  PRIMARY KEY (`kundeID`),   
+  INDEX `fk_kunde_postSted1_idx` (`postSted_postnummer`),   
+  CONSTRAINT `fk_kunde_postSted1`     
+    FOREIGN KEY (`postSted_postnummer`)     
+    REFERENCES `crm_database`.`postSted` (`postnummer`)     
+    ON DELETE NO ACTION     
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -82,9 +82,9 @@ CREATE TABLE IF NOT EXISTS `crm_database`.`kontaktperson` (
   `tlf` VARCHAR(12) NOT NULL,
   `epost` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`kontaktpersonID`),
-  INDEX `fk_kontaktperson_kunde_idx` (`kunde_kundeID` ASC) VISIBLE,
-  INDEX `fk_kontaktperson_avdeling1_idx` (`avdeling_avdelingID` ASC) VISIBLE,
-  INDEX `fk_kontaktperson_stilling1_idx` (`stilling_stillingID` ASC) VISIBLE,
+  INDEX `fk_kontaktperson_kunde_idx` (`kunde_kundeID` ASC) ,
+  INDEX `fk_kontaktperson_avdeling1_idx` (`avdeling_avdelingID` ASC) ,
+  INDEX `fk_kontaktperson_stilling1_idx` (`stilling_stillingID` ASC) ,
   CONSTRAINT `fk_kontaktperson_kunde`
     FOREIGN KEY (`kunde_kundeID`)
     REFERENCES `crm_database`.`kunde` (`kundeID`)
