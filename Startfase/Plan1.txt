@@ -4,3 +4,4 @@
 - Tildele oppgaver
 - Lage kravspesifikasjon 
 - Lage en Er-modell av databasen
+- Få det ut på Subdomene
