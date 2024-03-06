@@ -7,22 +7,21 @@
 </head>
 <body>
     <main>
-    <?php
-        include 'nav.php';
-    ?>  
-    <table>
-        <tr>
-            <th><label for="navn">Navn/Firma</label></th>
-            <th><label for="epost">Epost</label></th>
-            <th><label for="tlf">Telefon</label></th>
-        </tr>
-        <tr>
-            <td><input type="text" name="navn"></td>
-            <td><input type="text" name="epost"></td>
-            <td><input type="num" name="tlf" id=""></td>
-        </tr>
-    </table> 
-
+        <?php
+            include 'nav.php';
+        ?>  
+        <table>
+            <tr>
+                <th><label for="navn">Navn/Firma</label></th>
+                <th><label for="epost">Epost</label></th>
+                <th><label for="tlf">Telefon</label></th>
+            </tr>
+            <tr>
+                <td><input type="text" name="navn"></td>
+                <td><input type="text" name="epost"></td>
+                <td><input type="num" name="tlf" id=""></td>
+            </tr>
+        </table> 
     </main>
 
 
