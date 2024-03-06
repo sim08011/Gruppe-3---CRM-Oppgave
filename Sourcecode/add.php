@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+    <main>
     <?php
         include 'nav.php';
     ?>  
@@ -22,7 +23,7 @@
         </tr>
     </table> 
 
-
+    </main>
 
 
     <?php
