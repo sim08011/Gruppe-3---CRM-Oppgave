@@ -1,7 +1,5 @@
 <nav>
-    <div class="navbar">
     <a href="les.php">Les</a>
-    </div>
 </nav>
 
 <style>
@@ -9,7 +7,7 @@
         margin: 0px;
     }
 
-    .navbar {
+    .nav {
     overflow: hidden;
     background-color: #333;
     position: fixed;
@@ -17,7 +15,7 @@
     width: 100%;
     }
 
-    .navbar a {
+    .nav a {
     float: left;
     display: block;
     color: #f2f2f2;
@@ -26,7 +24,7 @@
     text-decoration: none;
     }
 
-    .navbar a:hover {
+    .nav a:hover {
     background: #ddd;
     color: black;
     }
