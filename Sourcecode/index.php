@@ -12,14 +12,7 @@
     <?php
         include 'nav.php';
         include 'header.php';
-
-        
-        $mysqli = new mysqli("localhost","root","","crm_database"); 
-        
-        if ($mysqli -> connect_errno) {
-            echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
-            exit();
-        }
+        include 'connection.php'
     ?>
 
     <table>
