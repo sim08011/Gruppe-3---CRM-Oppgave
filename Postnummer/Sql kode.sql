@@ -1,4 +1,4 @@
-INSERT INTO `poststed` (`postnummer`, `poststed`) VALUES
+INSERT INTO `postnummer` (`postnummer`, `poststed`) VALUES
 ('0001', 'OSLO'),
 ('0010', 'OSLO'),
 ('0015', 'OSLO'),
