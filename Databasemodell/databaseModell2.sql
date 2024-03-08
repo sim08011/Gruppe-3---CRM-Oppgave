@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `crm_database`.`kunde` (
   `nettsted` VARCHAR(60) NULL,
   `postnummer` VARCHAR(4) NOT NULL,
   PRIMARY KEY (`kundeID`),
-  INDEX `fk_kunde_postSted1_idx` (`postnummer` ASC) VISIBLE,
+  INDEX `fk_kunde_postSted1_idx` (`postnummer` ASC),
   CONSTRAINT `fk_kunde_postSted1`
     FOREIGN KEY (`postnummer`)
     REFERENCES `crm_database`.`postnummer` (`postnummer`)
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `crm_database`.`kontaktperson` (
   `epost` VARCHAR(100) NOT NULL,
   `kundeID` INT NOT NULL,
   PRIMARY KEY (`kontaktpersonID`),
-  INDEX `fk_kontaktperson_kunde1_idx` (`kundeID` ASC) VISIBLE,
+  INDEX `fk_kontaktperson_kunde1_idx` (`kundeID` ASC),
   CONSTRAINT `fk_kontaktperson_kunde1`
     FOREIGN KEY (`kundeID`)
     REFERENCES `crm_database`.`kunde` (`kundeID`)
