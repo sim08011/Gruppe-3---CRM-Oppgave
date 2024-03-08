@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bitnami.css">
     <title>Document</title>
 </head>
 <body>
@@ -15,21 +16,27 @@
         include 'connection.php'
     ?>
 
-    <table>
-    <?php
-    if ($result = $mysqli -> query("SELECT * FROM kunde")) {
-            while ($row = $result -> fetch_assoc()) {
-                echo "<td>";
-                echo "ID: ",$row["kundeID"]."<br>";
-                echo "Navn: ",$row["navn"]."<br>";
-                echo "Postnummer: ",$row["postSted_postnummer"]."<br>";
-                echo "Epost: ",$row["epost"]."<br>";
-                echo "Tlf: ",$row["tlf"]."<br>";
-                echo "</td>";
-            }
+<?php
+echo "<table>";
+$counter = 0;
+if ($result = $mysqli->query("SELECT * FROM kunde")) {
+    echo "<tr>";
+    while ($row = $result->fetch_assoc()) {
+        echo "<td>";
+        echo "Navn: ", $row["navn"] . "<br>";
+        echo "Postnummer: ", $row["postSted_postnummer"] . "<br>";
+        echo "Epost: ", $row["epost"] . "<br>";
+        echo "Tlf: ", $row["tlf"] . "<br>";
+        echo "</td>";
+        $counter++;
+        if ($counter % 5 == 0) {
+            echo "</tr><tr>";
         }
-    ?>
-    </table>
+    }
+    echo "</tr>";
+}
+echo "</table>";
+?>
 
     <style>
         table {
