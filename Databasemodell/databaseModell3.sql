@@ -1,3 +1,109 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: 11. Mar, 2024 12:42 PM
+-- Tjener-versjon: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `crm_database`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur for tabell `avdeling`
+--
+
+CREATE TABLE `avdeling` (
+  `avdelingID` int(11) NOT NULL,
+  `stillingNavn` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur for tabell `kontaktperson`
+--
+
+CREATE TABLE `kontaktperson` (
+  `kontaktpersonID` int(11) NOT NULL,
+  `fornavn` varchar(45) NOT NULL,
+  `etternavn` varchar(45) NOT NULL,
+  `kunde_kundeID` int(11) NOT NULL,
+  `avdeling_avdelingID` int(11) NOT NULL,
+  `stilling_stillingID` int(11) NOT NULL,
+  `tlf` varchar(12) NOT NULL,
+  `epost` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur for tabell `kunde`
+--
+
+CREATE TABLE `kunde` (
+  `kundeID` int(11) NOT NULL,
+  `navn` varchar(45) NOT NULL,
+  `epost` varchar(100) NOT NULL,
+  `tlf` varchar(12) NOT NULL,
+  `postSted` varchar(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dataark for tabell `kunde`
+--
+
+INSERT INTO `kunde` (`kundeID`, `navn`, `epost`, `tlf`, `postSted`) VALUES
+(11, 'Aplia', 'rl@aplia.no', '12345678', '3719'),
+(12, 'VTFK Team Grenland', 'christoffer.corzani@vtfk.no', '12345678', '3719'),
+(13, 'VTFK Team Fjell', 'janne.tornes@vtfk.no', '12345678', '3719'),
+(14, 'Skagerak Energi', 'test@test.com', '12345678', '3719'),
+(15, 'Lede', 'test@test.com', '12345678', '3719'),
+(16, 'Porsgrunn Kommune', 'test@test.com', '12345678', '3912'),
+(17, 'DNV Imatis', 'test@test.com', '12345678', '3719'),
+(18, 'Fellestjenester SA', 'ocb@ftsa.no', '12345678', '3719'),
+(19, 'Novari IKS', 'maria.kristoffersen@novari.no', '12345678', '3719'),
+(20, 'Rubynor', 'oma@rubynor.no', '12345678', '3719'),
+(21, 'Procanao', 'test@test.com', '12345678', '3719'),
+(22, 'Touch soft', 'terje@touchsoft.no', '12345678', '3719'),
+(23, 'ITG', 'test@test.com', '12345678', '3719'),
+(24, 'Edge Branding', 'hei@edgebranding.no', '12345678', '3719'),
+(25, 'ENRX', 'thove@otek.no', '12345678', '3719'),
+(26, 'USN Porsgrunn', 'test@test.com', '12345678', '3719'),
+(27, 'USN Notodden', 'test@test.com', '12345678', '3719'),
+(29, 'USN BØ', 'test@test.com', '12345678', '3800'),
+(30, 'Nett-Opp IT', 'test@test.com', '12345678', '3912'),
+(31, 'Evelon', 'stefan.meewisse@evelon.no', '12345678', '3912');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur for tabell `poststed`
+--
+
+CREATE TABLE `poststed` (
+  `postnummer` varchar(4) NOT NULL,
+  `poststed` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dataark for tabell `poststed`
+--
+
 INSERT INTO `poststed` (`postnummer`, `poststed`) VALUES
 ('0001', 'OSLO'),
 ('0010', 'OSLO'),
@@ -5146,3 +5252,103 @@ INSERT INTO `poststed` (`postnummer`, `poststed`) VALUES
 ('9982', 'KONGSFJORD'),
 ('9990', 'BÅTSFJORD'),
 ('9991', 'BÅTSFJORD');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur for tabell `stilling`
+--
+
+CREATE TABLE `stilling` (
+  `stillingID` int(11) NOT NULL,
+  `stillingNavn` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `avdeling`
+--
+ALTER TABLE `avdeling`
+  ADD PRIMARY KEY (`avdelingID`);
+
+--
+-- Indexes for table `kontaktperson`
+--
+ALTER TABLE `kontaktperson`
+  ADD PRIMARY KEY (`kontaktpersonID`),
+  ADD KEY `fk_kontaktperson_kunde_idx` (`kunde_kundeID`),
+  ADD KEY `fk_kontaktperson_avdeling1_idx` (`avdeling_avdelingID`),
+  ADD KEY `fk_kontaktperson_stilling1_idx` (`stilling_stillingID`);
+
+--
+-- Indexes for table `kunde`
+--
+ALTER TABLE `kunde`
+  ADD PRIMARY KEY (`kundeID`),
+  ADD KEY `fk_kunde_postSted1_idx` (`postSted`) USING BTREE;
+
+--
+-- Indexes for table `poststed`
+--
+ALTER TABLE `poststed`
+  ADD PRIMARY KEY (`postnummer`);
+
+--
+-- Indexes for table `stilling`
+--
+ALTER TABLE `stilling`
+  ADD PRIMARY KEY (`stillingID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `avdeling`
+--
+ALTER TABLE `avdeling`
+  MODIFY `avdelingID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `kontaktperson`
+--
+ALTER TABLE `kontaktperson`
+  MODIFY `kontaktpersonID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `kunde`
+--
+ALTER TABLE `kunde`
+  MODIFY `kundeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `stilling`
+--
+ALTER TABLE `stilling`
+  MODIFY `stillingID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Begrensninger for dumpede tabeller
+--
+
+--
+-- Begrensninger for tabell `kontaktperson`
+--
+ALTER TABLE `kontaktperson`
+  ADD CONSTRAINT `fk_kontaktperson_avdeling1` FOREIGN KEY (`avdeling_avdelingID`) REFERENCES `avdeling` (`avdelingID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_kontaktperson_kunde` FOREIGN KEY (`kunde_kundeID`) REFERENCES `kunde` (`kundeID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_kontaktperson_stilling1` FOREIGN KEY (`stilling_stillingID`) REFERENCES `stilling` (`stillingID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Begrensninger for tabell `kunde`
+--
+ALTER TABLE `kunde`
+  ADD CONSTRAINT `fk_kunde_postSted1` FOREIGN KEY (`postSted`) REFERENCES `poststed` (`postnummer`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
