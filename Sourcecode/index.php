@@ -19,26 +19,33 @@
 <?php
 echo "<table>";
 $counter = 0;
-if ($result = $mysqli->query("SELECT * FROM kunde")) {
-    echo "<tr>";
+if ($result = $mysqli->query("SELECT kunde.*, poststed.poststed FROM kunde
+                              LEFT JOIN poststed ON kunde.postSted = poststed.postnummer")) {
     while ($row = $result->fetch_assoc()) {
-        echo "<td>";
+        if ($counter % 5 == 0) {
+            echo "<tr>"; // Start a new row every five elements
+        }
+        echo "<td style='cursor: pointer;' onclick=\"window.location='';\">";
         echo "Navn: ", $row["navn"] . "<br>";
-        echo "Postnummer: ", $row["postSted_postnummer"] . "<br>";
+        echo "Postnummer: ", $row["postSted"]. ", " . $row["poststed"] . "<br>";
         echo "Epost: ", $row["epost"] . "<br>";
         echo "Tlf: ", $row["tlf"] . "<br>";
         echo "</td>";
         $counter++;
         if ($counter % 5 == 0) {
-            echo "</tr><tr>";
+            echo "</tr>";
         }
     }
-    echo "</tr>";
 }
-echo "</table>";
+echo "</table>"
 ?>
 
+
     <style>
+        button{
+            width: 13vw;
+        }
+
         table {
             margin-top: 6%;
             margin-left: auto;
