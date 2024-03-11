@@ -1,10 +1,17 @@
-<nav>
-    <a href="les.php">Les</a>
-</nav>
+
+<a href="index.php"><h2>Hjem</h2></a>
+
+<div id="Crmtekst">
+    <p>CRM System</p>
+</div>
 
 <style>
     * {
         margin: 0px;
+    }
+
+    .Crmtekst{
+        margin-left: 100%;
     }
 
     .nav {
