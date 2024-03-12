@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,13 +18,13 @@
 
         <form action="add.php" method="post">
             <label for="navn">Navn:</label><br>
-            <input type="text" id="navn" name="navn" required size="45"><br>
+            <input type="text" id="navn" name="navn" required maxlength="45" size="100"><br>
             <label for="epost">Epost:</label><br>
-            <input type="email" id="epost" name="epost" required size="100"><br>
+            <input type="email" id="epost" name="epost" required maxlength="100"><br>
             <label for="tlf">Telefon nummer:</label><br>
-            <input type="tel" id="tlf" name="tlf" required size="12"><br>
+            <input type="tel" id="tlf" name="tlf" required maxlength="12"><br>
             <label for="postSted">Post kode:</label><br>
-            <input type="text" id="postSted" name="postSted" required size="4"><br>
+            <input type="text" id="postSted" name="postSted" required maxlength="4"><br>
             <input type="submit" value="Leggtil">
             <input type="reset" value="Reset">
             <?php
@@ -36,6 +38,7 @@
                 VALUES ('$name', '$email', '$phone', '$postal')";
                     if ($mysqli->query($sql) === TRUE) {
                         echo "Bedrift lagt til";
+                        header("refresh:2; url=index.php");
                     } else {
                         echo "Error: " . $sql . "<br>" . $mysqli->error;
                     }
@@ -52,6 +55,8 @@
 </body>
 
 </html>
+
+
 
 <style>
     body {
