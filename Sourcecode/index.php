@@ -55,6 +55,8 @@ echo "</table>"
             border-color: black;
         }
     </style>
-    
-</body>
+    <?php
+    include 'footer.php';
+    ?>
+    </body>
 </html>
