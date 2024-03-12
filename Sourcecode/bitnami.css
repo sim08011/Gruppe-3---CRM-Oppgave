@@ -3,14 +3,8 @@
 }
 
 td {
-  border: 1px solid;
-  border-width: 2px;
   padding: 10px;
   width: 13vw;
-}
-
-table {
-  border: 0px !important;
 }
 
 .module_content img{
