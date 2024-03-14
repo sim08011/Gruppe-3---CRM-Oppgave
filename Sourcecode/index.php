@@ -69,6 +69,7 @@ echo "</table>"
 
         button{
             width: 13vw;
+            cursor: pointer;
         }
 
         table {

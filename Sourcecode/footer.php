@@ -1,6 +1,6 @@
 <footer >
 <section class="info">
-        <p>&copy; CRM Oppgave</p>
+        <p>&copy; CRM Oppgave Gruppe 3</p>
         <p>2ITA Porsgrunn VGS</p>
     </section>
 
@@ -27,11 +27,12 @@
     footer {
         background-color: #fff;
         color: #000;
-        padding: 20px;
+        padding-top: 20px;
         border-top: 2px solid #000;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        height: 5%;
     }
 
     .developers {
@@ -49,7 +50,7 @@
     }
 
     .info {
-        text-align: right;
+        text-align: center;
     }
 
     .developers h4 {
