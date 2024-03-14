@@ -1,0 +1,1 @@
+Arkiv for testing området for å få postnummer databasen til å funke med data fra posten.no for å kunne skrive inn post nummer og få by santidig
