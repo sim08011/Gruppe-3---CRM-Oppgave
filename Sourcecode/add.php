@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,10 +52,7 @@
     include 'footer.php'
         ?>
 </body>
-
 </html>
-
-
 
 <style>
     body {
