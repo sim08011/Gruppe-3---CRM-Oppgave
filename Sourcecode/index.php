@@ -44,6 +44,12 @@ if ($result = $mysqli->query("SELECT kunde.*, poststed.poststed FROM kunde
 echo "</table>"
 ?>
 
+<?php
+    include 'footer.php';
+?>
+</body>
+</html>
+
 
     <style>
         body {
@@ -80,14 +86,11 @@ echo "</table>"
             border-spacing: 10px;
             border: 2px solid black;
             background-color: white;
+            margin-bottom: 50px;
         }
 
         td {
             border: 2px solid black;
         }
     </style>
-    <?php
-    include 'footer.php';
-    ?>
-    </body>
-</html>
+

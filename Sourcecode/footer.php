@@ -33,6 +33,7 @@
         justify-content: space-between;
         align-items: center;
         height: 5%;
+        padding-bottom: 25px;
     }
 
     .developers {
