@@ -32,7 +32,7 @@
                 $email = $_POST['epost'];
                 $phone = $_POST['tlf'];
                 $postal = $_POST['postnummer'];
-
+                // Ser kom postnummret som blir lagdt til allerede finnes i databasen
                 $stmt = $mysqli->prepare("SELECT postnummer FROM postnummer Where postnummer = ?");
                 $stmt->bind_param("s", $_POST["postnummer"]);
                 $stmt->execute();
@@ -40,8 +40,10 @@
                 $stmt->close();
 
                 if (!$exists) {
+                    // Vis postnummret ikke fines:
                     echo "Veligst oppgi et gyldig postnummer";
                 } elseif (isset($name) && isset($email) && isset($phone) && isset($postal)) {
+                    // Putter verdiene inn i databasen
                     $sql = "INSERT INTO kunde (navn, epost, tlf, postnummer)
                     VALUES ('$name', '$email', '$phone', '$postal')";
                     if ($mysqli->query($sql) === TRUE) {
