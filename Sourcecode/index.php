@@ -23,15 +23,15 @@
 <?php
 echo "<table class='bordered-table'>";
 $counter = 0;
-if ($result = $mysqli->query("SELECT kunde.*, poststed.poststed FROM kunde
-                              LEFT JOIN poststed ON kunde.postSted = poststed.postnummer")) {
+if ($result = $mysqli->query("SELECT kunde.*, postnummer.poststed FROM kunde
+                              LEFT JOIN postnummer ON kunde.postnummer = postnummer.postnummer")) {
     while ($row = $result->fetch_assoc()) {
         if ($counter % 5 == 0) {
             echo "<tr>"; // Start a new row every five elements
         }
         echo "<td style='cursor: pointer;' onclick=\"window.location='';\">";
         echo "<b>Navn:</b> ", $row["navn"] . "<br>";
-        echo "<b>Postnummer:</b> ", $row["postSted"]. ", " . $row["poststed"] . "<br>";
+        echo "<b>Postnummer:</b> ", $row["postnummer"]. ", " . $row["postnummer"] . "<br>";
         echo "<b>Epost:</b> ", $row["epost"] . "<br>";
         echo "<b>Tlf:</b> ", $row["tlf"] . "<br>";
         echo "</td>";
