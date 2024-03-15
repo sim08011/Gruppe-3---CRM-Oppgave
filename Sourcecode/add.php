@@ -23,7 +23,7 @@
             <label for="tlf">Telefon nummer:</label><br>
             <input type="tel" id="tlf" name="tlf" required maxlength="12" ><br>
             <label for="postSted">Post kode:</label><br>
-            <input type="text" id="postSted" name="postSted" required maxlength="4"><br>
+            <input type="text" id="postSted" name="postnummer" required maxlength="4"><br>
             <input type="submit" value="Leggtil">
             <input type="reset" value="Reset">
             <?php
@@ -33,7 +33,7 @@
                 $phone = $_POST['tlf'];
                 $postal = $_POST['postSted'];
 
-                $stmt = $mysqli->prepare("SELECT postnummer FROM poststed Where postnummer = ?");
+                $stmt = $mysqli->prepare("SELECT postnummer FROM postnummer Where postnummer = ?");
                 $stmt->bind_param("s", $_POST["postSted"]);
                 $stmt->execute();
                 $exists = $stmt->fetch();
