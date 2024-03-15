@@ -32,9 +32,18 @@
                 $email = $_POST['epost'];
                 $phone = $_POST['tlf'];
                 $postal = $_POST['postSted'];
-                if (isset($name) && isset($email) && isset($phone) && isset($postal)) {
+
+                $stmt = $mysqli->prepare("SELECT postnummer FROM poststed Where postnummer = ?");
+                $stmt->bind_param("s", $_POST["postSted"]);
+                $stmt->execute();
+                $exists = $stmt->fetch();
+                $stmt->close();
+
+                if (!$exists) {
+                    echo "Veligst oppgi et gyldig postnummer";
+                } elseif (isset($name) && isset($email) && isset($phone) && isset($postal)) {
                     $sql = "INSERT INTO kunde (navn, epost, tlf, postSted)
-                VALUES ('$name', '$email', '$phone', '$postal')";
+                    VALUES ('$name', '$email', '$phone', '$postal')";
                     if ($mysqli->query($sql) === TRUE) {
                         echo "Bedrift lagt til";
                         header("refresh:2; url=index.php");
