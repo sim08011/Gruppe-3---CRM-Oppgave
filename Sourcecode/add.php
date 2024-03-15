@@ -21,7 +21,7 @@
             <label for="epost">Epost:</label><br>
             <input type="email" id="epost" name="epost" required maxlength="100"><br>
             <label for="tlf">Telefon nummer:</label><br>
-            <input type="tel" id="tlf" name="tlf" required maxlength="12"><br>
+            <input type="tel" id="tlf" name="tlf" required maxlength="12" ><br>
             <label for="postSted">Post kode:</label><br>
             <input type="text" id="postSted" name="postSted" required maxlength="4"><br>
             <input type="submit" value="Leggtil">

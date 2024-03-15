@@ -24,16 +24,26 @@
 
 
 <style>
+
+
     footer {
+        
         background-color: #fff;
         color: #000;
-        padding-top: 20px;
+        padding-top: 10;
         border-top: 2px solid #000;
         display: flex;
         justify-content: space-between;
         align-items: center;
         height: 5%;
-        padding-bottom: 25px;
+        width: 100%;
+    }
+
+    footer section {
+        padding-right: 10px;
+    }
+    footer a {
+        margin-top: 0px;
     }
 
     .developers {

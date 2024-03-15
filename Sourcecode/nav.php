@@ -1,42 +1,31 @@
-
-<a href="index.php"><h2>Hjem</h2></a>
-
-<div id="Crmtekst">
-    <p>CRM System</p>
-</div>
-
+<nav>
+    <a href="index.php"><h2>Hjem</h2></a>
+</nav>
 <style>
-    * {
-        margin: 0px;
-    }
 
-    .Crmtekst{
-        margin-left: 100%;
-    }
-
-    .nav {
+    nav {
     overflow: hidden;
-    background-color: #333;
+    background-color: #FFF;
     position: fixed;
     top: 0;
     width: 100%;
+    height: 4rem;
+    border-bottom: 2px solid #000;
     }
 
-    .nav a {
+    nav a {
     float: left;
     display: block;
-    color: #f2f2f2;
+    color: #000;
     text-align: center;
-    padding: 14px 16px;
+    padding: 8px 8;
     text-decoration: none;
     }
 
-    .nav a:hover {
+    nav a:hover {
     background: #ddd;
     color: black;
     }
 
-    .main {
-    margin-top: 30px;
-    }
+
 </style>
