@@ -22,8 +22,8 @@
             <input type="email" id="epost" name="epost" required maxlength="100"><br>
             <label for="tlf">Telefon nummer:</label><br>
             <input type="tel" id="tlf" name="tlf" required maxlength="12" ><br>
-            <label for="postSted">Post kode:</label><br>
-            <input type="text" id="postSted" name="postnummer" required maxlength="4"><br>
+            <label for="postnummer">Post kode:</label><br>
+            <input type="text" id="postnummer" name="postnummer" required maxlength="4"><br>
             <input type="submit" value="Leggtil">
             <input type="reset" value="Reset">
             <?php
@@ -31,10 +31,10 @@
                 $name = $_POST['navn'];
                 $email = $_POST['epost'];
                 $phone = $_POST['tlf'];
-                $postal = $_POST['postSted'];
+                $postal = $_POST['postnummer'];
 
                 $stmt = $mysqli->prepare("SELECT postnummer FROM postnummer Where postnummer = ?");
-                $stmt->bind_param("s", $_POST["postSted"]);
+                $stmt->bind_param("s", $_POST["postnummer"]);
                 $stmt->execute();
                 $exists = $stmt->fetch();
                 $stmt->close();
@@ -42,7 +42,7 @@
                 if (!$exists) {
                     echo "Veligst oppgi et gyldig postnummer";
                 } elseif (isset($name) && isset($email) && isset($phone) && isset($postal)) {
-                    $sql = "INSERT INTO kunde (navn, epost, tlf, postSted)
+                    $sql = "INSERT INTO kunde (navn, epost, tlf, postnummer)
                     VALUES ('$name', '$email', '$phone', '$postal')";
                     if ($mysqli->query($sql) === TRUE) {
                         echo "Bedrift lagt til";
