@@ -5243,7 +5243,7 @@ INSERT INTO `kunde` (`kundeID`, `navn`, `epost`, `tlf`, `postnummer`) VALUES
 (30, 'Nett-Opp IT', 'test@test.com', '12345678', '3912'),
 (31, 'Evelon', 'stefan.meewisse@evelon.no', '12345678', '3912'),
 (32, 'Plan B IT', 'plan@bit.no', '12345678', '3960'),
-(32, 'Bjørn Moen Bilverksted', 'vaerksted@bjorn.no', '12345628', '3965');
+(33, 'Bjørn Moen Bilverksted', 'vaerksted@bjorn.no', '12345628', '3965');
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

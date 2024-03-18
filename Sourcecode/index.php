@@ -8,30 +8,31 @@
 </head>
 <body>
 
-
-
     <?php
         include 'nav.php';
         include 'header.php';
         include 'connection.php'
     ?>
-<div id="button-container">
-    <a href="rediger.php"><button id="Redigerknapp">Rediger</button></a>
-    <a href="add.php"><button id="LeggtilKnapp">Legg til</button></a>
-</div>
+
+    <div id="button-container">
+        <button id="toggleButton">Merk</button>
+        <a href="rediger.php"><button id="Redigerknapp">Rediger</button></a>
+        <a href="add.php"><button id="LeggtilKnapp">Legg til</button></a>
+    </div>
 
 <?php
+
 echo "<table class='bordered-table'>";
 $counter = 0;
-if ($result = $mysqli->query("SELECT kunde.*, postnummer.poststed FROM kunde
+if ($result = $mysqli->query("SELECT kunde.*, postnummer.poststed AS poststed FROM kunde
                               LEFT JOIN postnummer ON kunde.postnummer = postnummer.postnummer")) {
     while ($row = $result->fetch_assoc()) {
-        if ($counter % 5 == 0) {
+        if ($counter % 5 == 0) {    
             echo "<tr>"; // Start a new row every five elements
         }
-        echo "<td style='cursor: pointer;' onclick=\"window.location='';\">";
+        echo "<td style='cursor: pointer;'>";
         echo "<b>Navn:</b> ", $row["navn"] . "<br>";
-        echo "<b>Postnummer:</b> ", $row["postnummer"]. ", " . $row["postnummer"] . "<br>";
+        echo "<b>Postnummer:</b> ", $row["postnummer"]. ", " . $row["poststed"] . "<br>"; // Print poststed instead of postnummer twice
         echo "<b>Epost:</b> ", $row["epost"] . "<br>";
         echo "<b>Tlf:</b> ", $row["tlf"] . "<br>";
         echo "</td>";
@@ -41,8 +42,25 @@ if ($result = $mysqli->query("SELECT kunde.*, postnummer.poststed FROM kunde
         }
     }
 }
-echo "</table>"
+echo "</table>";
 ?>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var button = document.getElementById("toggleButton");
+  var tds = document.querySelectorAll("td");
+
+  button.addEventListener("click", function() {
+    tds.forEach(function(td) {
+      td.addEventListener("click", function() {
+        this.classList.toggle("grey");
+        
+      });
+    });
+  });
+});
+</script>
 
 <?php
     include 'footer.php';
@@ -57,7 +75,7 @@ echo "</table>"
         }
 
         #button-container{
-            margin-left: 77%;
+            margin-left: 74.2%;
         }
 
         #LeggtilKnapp{
@@ -71,6 +89,13 @@ echo "</table>"
             background-color: #BD0000;
             color: white;
             position: relative;
+        }
+
+        #toggleButton{
+            width: 3vw;
+            background-color: grey;
+            color: white;
+
         }
 
         button{
@@ -92,5 +117,8 @@ echo "</table>"
         td {
             border: 2px solid black;
         }
-    </style>
 
+        .grey {
+            background-color: #E5F3FF;
+        }
+    </style>
