@@ -12,6 +12,7 @@
     width: 100%;
     height: 4rem;
     border-bottom: 2px solid #000;
+    margin-bottom: 25px;
     }
 
     nav a {
