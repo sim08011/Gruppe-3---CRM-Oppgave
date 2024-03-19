@@ -1,3 +1,6 @@
+*{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 .module_top, .module_bottom{
   visibility: hidden;
 }
