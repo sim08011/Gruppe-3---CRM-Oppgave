@@ -14,7 +14,7 @@
     <?php
         echo "<table>";
         $counter = 0;
-        if ($result = $mysqli->query("SELECT kontaktperson.*, kunde.navn AS kunde_navn FROM kontaktperson INNER JOIN kunde ON kontaktperson.kundeID = kunde.kundeID WHERE kontaktperson.kundeID = 30")) {
+        if ($result = $mysqli->query("SELECT kontaktperson.*, kunde.navn AS kunde_navn FROM kontaktperson INNER JOIN kunde ON kontaktperson.kundeID = kunde.kundeID WHERE kontaktperson.kundeID = 15")) {
             if ($result->num_rows > 0) {
                 $rad = $result->fetch_assoc(); // Fetching the first row
                 $kunde_navn = $rad["kunde_navn"]; // Store the value of kunde.navn

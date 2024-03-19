@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Selected kundeIDs:', selectedKundeIDs);
             } else {
                 window.location.href = 'les.php';
+                
             }
         });
     });
@@ -162,5 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         td {
             border: 2px solid black;
+            cursor: pointer;
         }
     </style>
