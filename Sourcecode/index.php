@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (markMode) { // Check if mark mode is active
                 if (td.classList.contains('markedColor')) {
                     td.classList.remove('markedColor');
-                    td.style.backgroundColor = ''; // Reset background color
+                    td.style.backgroundColor = '#f0f8ff'; // Reset background color
                     // Remove kundeID from array when deselected
                     var kundeIDIndex = selectedKundeIDs.indexOf(td.getAttribute('data-kundeid'));
                     if (kundeIDIndex !== -1) {
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 } else {
                     td.classList.add('markedColor');
-                    td.style.backgroundColor = 'yellow'; // Change background color to yellow
+                    td.style.backgroundColor = '#f0f8ff'; // Change background color to yellow
                     // Add kundeID to array when selected
                     var kundeID = td.getAttribute('data-kundeid');
                     selectedKundeIDs.push(kundeID);
@@ -72,10 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Log selected kundeIDs array
                 console.log('Selected kundeIDs:', selectedKundeIDs);
             } else {
-                // Extract kundeID from data attribute
-                var kundeID = td.getAttribute('data-kundeid');
-                // Redirect to 'rediger.php' with kundeID as parameter
-                window.location.href = 'rediger.php?selectedKundeIDs=' + encodeURIComponent(JSON.stringify([selectedKundeIDs]));
+                window.location.href = 'add.php';
             }
         });
     });
