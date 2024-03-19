@@ -1,5 +1,6 @@
 <nav>
     <a href="index.php"><h2>Hjem</h2></a>
+    <a href="login.php"><h2>Logg inn</h2></a>
 </nav>
 <style>
 
@@ -20,6 +21,7 @@
     text-align: center;
     padding: 8px 8;
     text-decoration: none;
+    padding-right: 100px;
     }
 
     nav a:hover {
