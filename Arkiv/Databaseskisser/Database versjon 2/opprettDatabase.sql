@@ -71,19 +71,6 @@ CREATE TABLE IF NOT EXISTS `crm_database`.`kontaktperson` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- Table `crm_database`.`bruker`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `crm_database`.`bruker` (
-  `brukerID` INT NOT NULL AUTO_INCREMENT,
-  `brukernavn` VARCHAR(20) NOT NULL,
-  `passord` VARCHAR(100) NOT NULL,
-  `erAdministrator` TINYINT NOT NULL,
-  PRIMARY KEY (`brukerID`))
-ENGINE = InnoDB;
-
-INSERT INTO `bruker` (`brukerID`, `brukernavn`, `passord`, `erAdministrator`) VALUES
-(0, 'admin', 'Test123', '1');
-
 
 INSERT INTO `postnummer` (`postnummer`, `poststed`) VALUES
 ('0001', 'OSLO'),
