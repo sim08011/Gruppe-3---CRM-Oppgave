@@ -13,53 +13,102 @@
         include 'header.php';
         include 'connection.php'
     ?>
-
     <div id="button-container">
-        <button id="toggleButton">Merk</button>
-        <a href="rediger.php"><button id="Redigerknapp">Rediger</button></a>
+        <button type="button" name="toggleButton" id="toggleButton">Merk</button>
+        <button id="Redigerknapp">Rediger</button>
         <a href="add.php"><button id="LeggtilKnapp">Legg til</button></a>
     </div>
-
 <?php
-
-echo "<table class='bordered-table'>";
-$counter = 0;
-if ($result = $mysqli->query("SELECT kunde.*, postnummer.poststed AS poststed FROM kunde
-                              LEFT JOIN postnummer ON kunde.postnummer = postnummer.postnummer")) {
-    while ($row = $result->fetch_assoc()) {
-        if ($counter % 5 == 0) {    
-            echo "<tr>"; // Start a new row every five elements
-        }
-        echo "<td style='cursor: pointer;'>";
-        echo "<b>Navn:</b> ", $row["navn"] . "<br>";
-        echo "<b>Postnummer:</b> ", $row["postnummer"]. ", " . $row["poststed"] . "<br>"; // Print poststed instead of postnummer twice
-        echo "<b>Epost:</b> ", $row["epost"] . "<br>";
-        echo "<b>Tlf:</b> ", $row["tlf"] . "<br>";
-        echo "</td>";
-        $counter++;
-        if ($counter % 5 == 0) {
-            echo "</tr>";
+    echo "<table class='bordered-table'>";
+    $counter = 0;
+    echo "<tr>"; // Start a new row
+    if ($result = $mysqli->query("SELECT kunde.*, postnummer.poststed AS poststed FROM kunde
+                                LEFT JOIN postnummer ON kunde.postnummer = postnummer.postnummer")) {
+        while ($row = $result->fetch_assoc()) {
+            if ($counter % 5 == 0 && $counter != 0) {    
+                echo "</tr><tr>"; // Start a new row every five elements
+            }
+            // Assuming 'kundeID' is one of the fields in the database
+            $kundeID = $row['kundeID'];
+            // Output the <td> with the kundeID as a data attribute
+            echo "<td class='td-link' data-kundeid='$kundeID'>";
+            // Output other information within the <td>
+            echo "<b>Navn:</b> ", $row["navn"] . "<br>";
+            echo "<b>Postnummer:</b> ", $row["postnummer"]. ", " . $row["poststed"] . "<br>";
+            echo "<b>Epost:</b> ", $row["epost"] . "<br>";
+            echo "<b>Tlf:</b> ", $row["tlf"] . "<br>";
+            echo "</td>"; // Close <td> tag
+            $counter++;
         }
     }
-}
-echo "</table>";
+    echo "</tr>"; // Close the last row
+    echo "</table>";
 ?>
 
-
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  var button = document.getElementById("toggleButton");
-  var tds = document.querySelectorAll("td");
+document.addEventListener('DOMContentLoaded', function() {
+    var markMode = false; // Variable to track mark mode
+    var selectedKundeIDs = []; // Array to store selected kundeIDs
 
-  button.addEventListener("click", function() {
+    var tds = document.querySelectorAll('.td-link');
     tds.forEach(function(td) {
-      td.addEventListener("click", function() {
-        this.classList.toggle("grey");
-        
-      });
+        td.addEventListener('click', function() {
+            if (markMode) { // Check if mark mode is active
+                if (td.classList.contains('markedColor')) {
+                    td.classList.remove('markedColor');
+                    td.style.backgroundColor = ''; // Reset background color
+                    // Remove kundeID from array when deselected
+                    var kundeIDIndex = selectedKundeIDs.indexOf(td.getAttribute('data-kundeid'));
+                    if (kundeIDIndex !== -1) {
+                        selectedKundeIDs.splice(kundeIDIndex, 1);
+                    }
+                } else {
+                    td.classList.add('markedColor');
+                    td.style.backgroundColor = 'yellow'; // Change background color to yellow
+                    // Add kundeID to array when selected
+                    var kundeID = td.getAttribute('data-kundeid');
+                    selectedKundeIDs.push(kundeID);
+                }
+                // Log selected kundeIDs array
+                console.log('Selected kundeIDs:', selectedKundeIDs);
+            } else {
+                // Extract kundeID from data attribute
+                var kundeID = td.getAttribute('data-kundeid');
+                // Redirect to 'rediger.php' with kundeID as parameter
+                window.location.href = 'rediger.php?selectedKundeIDs=' + encodeURIComponent(JSON.stringify([selectedKundeIDs]));
+            }
+        });
     });
-  });
+
+    document.getElementById('Redigerknapp').addEventListener('click', function() {
+    // Construct the URL with selected kundeIDs as parameters
+    var url = 'rediger.php?kundeIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs));
+    // Log the constructed URL
+    console.log('Constructed URL:', url);
+    // Redirect to rediger.php
+    window.location.href = url;
+    // Log a message after the redirection
+    console.log('After redirection');
 });
+
+    document.getElementById('toggleButton').addEventListener('click', function() {
+        markMode = !markMode; // Toggle mark mode
+        if (markMode) {
+            this.textContent = 'Avbryt'; // Change button text
+        } else {
+            this.textContent = 'Merk'; // Change button text
+            // Reset all marked colors and styles
+            tds.forEach(function(td) {
+                td.classList.remove('markedColor');
+                td.style.backgroundColor = ''; // Reset background color
+            });
+            selectedKundeIDs = []; // Clear the selected IDs array
+        }
+        // Log mark mode status
+        console.log('Mark mode:', markMode);
+    });
+});
+
 </script>
 
 <?php
@@ -75,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         #button-container{
-            margin-left: 74.2%;
+            margin-left: 73%;
         }
 
         #LeggtilKnapp{
@@ -92,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         #toggleButton{
-            width: 3vw;
+            width: 4vw;
             background-color: grey;
             color: white;
 
@@ -116,9 +165,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
         td {
             border: 2px solid black;
-        }
-
-        .grey {
-            background-color: #E5F3FF;
         }
     </style>
