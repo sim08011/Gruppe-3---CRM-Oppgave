@@ -21,34 +21,52 @@
             // Decode the URL-encoded JSON string and convert it to a PHP array
             $selectedKundeIDs = json_decode($_GET['kundeIDs'], true);
 
+            // Output a form for updating kunde records
+            echo "<form method='post'>";
             // Iterate over each kundeID
             foreach ($selectedKundeIDs as $kundeID) {
                 // Prepare and execute the SQL query
                 $query = "SELECT kundeID, navn, postnummer, tlf, epost FROM kunde WHERE kundeID='$kundeID'";
                 $result = $mysqli->query($query);
-                $counter = 0;
+
                 // Check if there are results
                 if ($result && $result->num_rows > 0) {
                     // Output data of each row
                     while ($row = $result->fetch_assoc()) {
-                        if ($counter % 2 == 0 && $counter != 0) {
-                            echo "</tr><tr>";
-                        }
                         echo "<table class='bordered-table'>";
                         echo "<td>";
                         echo "<b>KundeID: </b>" . $row["kundeID"] . "<br>";
-                        echo "<b>Navn: </b>" . "<input value=" . $row['navn'] . ">" . "<br>";
-                        echo "<b>Postnummer: </b>" . "<input value=" . $row['postnummer'] . ">" . "<br>";
-                        echo "<b>Telefon: </b>" . "<input value=" . $row['tlf'] . ">" . "<br>";
-                        echo "<b>Epost: </b>" . "<input value=" . $row['epost'] . ">" . "<br>";
+                        // Input fields with unique names for each kunde record
+                        echo "<b>Navn: </b>" . "<input name='navn_$kundeID' value='" . $row['navn'] . "'>" . "<br>";
+                        echo "<b>Postnummer: </b>" . "<input name='postnr_$kundeID' required maxlength='4' value='" . $row['postnummer'] . "'>" . "<br>";
+                        echo "<b>Telefon: </b>" . "<input name='tlf_$kundeID' value='" . $row['tlf'] . "'>" . "<br>";
+                        echo "<b>Epost: </b>" . "<input name='epost_$kundeID' value='" . $row['epost'] . "'>" . "<br>";
                         echo "</td>";
                         echo "</table>";
-                        $counter++;
-                }
+                    }
                 } else {
                     // Output a message if no results found for the kundeID
-                    echo "<tr><td colspan='5'>No results found for kundeID: $kundeID</td></tr>";
+                    echo "<p>No results found for kundeID: $kundeID</p>";
                 }
+            }
+            // Submit button
+            echo "<input type='submit' name='Oppdater' value='Oppdater'>";
+            echo "</form>";
+
+            // Handle form submission
+            if (isset($_POST["Oppdater"])) {
+                foreach ($selectedKundeIDs as $kundeID) {
+                    // Retrieve updated values from the form
+                    $navn = $_POST["navn_$kundeID"];
+                    $postnr = $_POST["postnr_$kundeID"];
+                    $tlf = $_POST["tlf_$kundeID"];
+                    $epost = $_POST["epost_$kundeID"];
+                    
+                    // Update kunde record in the database
+                    $updateQuery = "UPDATE kunde SET navn='$navn', postnummer='$postnr', tlf='$tlf', epost='$epost' WHERE kundeID='$kundeID'";
+                    $mysqli->query($updateQuery);
+                }
+                echo "<p>BRA!</p>";
             }
         } else {
             echo "No kundeIDs selected.";
