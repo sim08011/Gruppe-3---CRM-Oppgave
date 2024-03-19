@@ -26,21 +26,25 @@
                 // Prepare and execute the SQL query
                 $query = "SELECT kundeID, navn, postnummer, tlf, epost FROM kunde WHERE kundeID='$kundeID'";
                 $result = $mysqli->query($query);
-
+                $counter = 0;
                 // Check if there are results
                 if ($result && $result->num_rows > 0) {
                     // Output data of each row
                     while ($row = $result->fetch_assoc()) {
+                        if ($counter % 2 == 0 && $counter != 0) {
+                            echo "</tr><tr>";
+                        }
                         echo "<table class='bordered-table'>";
                         echo "<td>";
                         echo "<b>KundeID: </b>" . $row["kundeID"] . "<br>";
-                        echo "<b>Navn: </b>" . $row["navn"] . "<br>";
-                        echo "<b>Postnummer: </b>" . $row["postnummer"] . "<br>";
-                        echo "<b>Telefon: </b>" . $row["tlf"] . "<br>";
-                        echo "<b>Epost: </b>" . $row["epost"] . "<br>";
+                        echo "<b>Navn: </b>" . "<input value=" . $row['navn'] . ">" . "<br>";
+                        echo "<b>Postnummer: </b>" . "<input value=" . $row['postnummer'] . ">" . "<br>";
+                        echo "<b>Telefon: </b>" . "<input value=" . $row['tlf'] . ">" . "<br>";
+                        echo "<b>Epost: </b>" . "<input value=" . $row['epost'] . ">" . "<br>";
                         echo "</td>";
                         echo "</table>";
-                    }
+                        $counter++;
+                }
                 } else {
                     // Output a message if no results found for the kundeID
                     echo "<tr><td colspan='5'>No results found for kundeID: $kundeID</td></tr>";

@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Log selected kundeIDs array
                 console.log('Selected kundeIDs:', selectedKundeIDs);
             } else {
-                window.location.href = 'add.php';
+                window.location.href = 'les.php';
             }
         });
     });
