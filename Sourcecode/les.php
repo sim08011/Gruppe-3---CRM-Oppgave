@@ -12,6 +12,7 @@
         include 'connection.php';
     ?>  
     <main>
+    
     <?php
     $ID = $_GET['ID'];
         echo "<table>";
@@ -20,8 +21,14 @@
             if ($result->num_rows > 0) {
                 $rad = $result->fetch_assoc(); // Fetching the first row
                 $kunde_navn = $rad["kunde_navn"]; // Store the value of kunde.navn
-                echo "<caption>$kunde_navn</caption>"; // Output the value of kunde.navn
+                echo "<caption>$kunde_navn"; // Output the value of kunde.navn
                 
+                echo '<section id="button-container">';
+                echo '<button type="button" name="toggleButton" id="toggleButton">Merk</button>';
+                echo '<button id="Redigerknapp">Rediger</button>';
+                echo "<a href='addContact.php?id=$ID'><button id='LeggtilKnapp'>Legg til</button></a>";
+                echo '</section>';
+                echo '</</caption>';
                 do {
                     if ($counter % 5 == 0) {    
                         echo "<tr>"; // Start a new row every five elements
@@ -81,4 +88,33 @@
     td {
         border: 2px solid black;
     }
+
+    #button-container{
+            margin-left: 73%;
+        }
+
+        #LeggtilKnapp{
+            width: 5vw;
+            background-color: #3262ab;
+            color: white;
+        }
+
+        #Redigerknapp {
+            width: 5vw;
+            background-color: #BD0000;
+            color: white;
+            position: relative;
+        }
+
+        #toggleButton{
+            width: 4vw;
+            background-color: grey;
+            color: white;
+
+        }
+
+        button{
+            width: 13vw;
+            cursor: pointer;
+        }
 </style>

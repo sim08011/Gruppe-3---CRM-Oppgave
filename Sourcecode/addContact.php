@@ -11,11 +11,12 @@
 <body>
     <?php
     include 'nav.php';
-    include 'connection.php'
+    include 'connection.php';
+    $ID = isset($_GET['id']) ? $_GET['id'] : ''; // Set $ID to $_GET['id'] if it exists, otherwise set it to an empty string
         ?>
     <main>
 
-        <form action="addContact.php" method="post">
+    <form action="addContact.php?id=<?php echo $ID; ?>" method="post">
             <label for="fornavn">Fornavn: *</label><br>
             <input type="text" id="fornavn" name="fornavn" required maxlength="45" size="100"><br>
             <label for="etternavn">Etternavn: *</label><br>
@@ -31,6 +32,7 @@
             <input type="submit" value="Legg til">
             <input type="reset" value="Reset">
             <?php
+
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $firstName = $_POST['fornavn'];
                 $sirName = $_POST['etternavn'];
@@ -38,11 +40,12 @@
                 $department = $_POST['avdeling'];
                 $phone = $_POST['tlf'];
                 $email = $_POST['epost'];
+                $kundeID = $ID;
             
 
                 if (isset($firstName) && isset($sirName) && isset($position) && isset($department) && isset($phone) && isset($email)) {
                     $sql = "INSERT INTO kontaktperson (fornavn, etternavn, stilling, avdeling, tlf, epost, kundeID)
-                    VALUES ('$firstName', '$sirName', '$position', '$department', '$phone', '$email', 25)";
+                    VALUES ('$firstName', '$sirName', '$position', '$department', '$phone', '$email', $kundeID)";
                     if ($mysqli->query($sql) === TRUE) {
                         echo "Kontaktperson lagt til";
                         header("refresh:2; url=index.php");
