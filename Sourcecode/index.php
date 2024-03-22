@@ -50,30 +50,36 @@ document.addEventListener('DOMContentLoaded', function() {
     var tds = document.querySelectorAll('.td-link');
     tds.forEach(function(td) {
         td.addEventListener('click', function() {
-            
             if (markMode) { // Check if mark mode is active
-                document.getElementById("Redigerknapp").style.display="inline";
+                document.getElementById("Redigerknapp").style.display = "inline";
+
                 if (td.classList.contains('markedColor')) {
+                    // If already marked, unmark it
                     td.classList.remove('markedColor');
-                    td.style.backgroundColor = '#f0f8ff'; // Reset background color
+                    td.style.backgroundColor = ''; // Reset background color
+
                     // Remove kundeID from array when deselected
                     var kundeIDIndex = selectedKundeIDs.indexOf(td.getAttribute('data-kundeid'));
                     if (kundeIDIndex !== -1) {
                         selectedKundeIDs.splice(kundeIDIndex, 1);
                     }
                 } else {
+                    // If not marked, mark it
                     td.classList.add('markedColor');
                     td.style.backgroundColor = '#f0f8ff'; // Change background color to yellow
+
                     // Add kundeID to array when selected
                     var kundeID = td.getAttribute('data-kundeid');
                     selectedKundeIDs.push(kundeID);
                 }
+
                 // Log selected kundeIDs array
                 console.log('Selected kundeIDs:', selectedKundeIDs);
             } else {
                 window.location.href = 'les.php?ID=' + td.getAttribute("data-kundeid");
             }
         });
+
     });
 
     document.getElementById('Redigerknapp').addEventListener('click', function() {
