@@ -28,20 +28,17 @@
             if ($counter % 5 == 0 && $counter != 0) {    
                 echo "</tr><tr>"; // Start a new row every five elements
             }
-            // Assuming 'kundeID' is one of the fields in the database
             $kundeID = $row['kundeID'];
-            // Output the <td> with the kundeID as a data attribute
             echo "<td class='td-link' data-kundeid='$kundeID'>";
-            // Output other information within the <td>
             echo "<b>Navn:</b> ", $row["navn"] . "<br>";
             echo "<b>Postnummer:</b> ", $row["postnummer"]. ", " . $row["poststed"] . "<br>";
             echo "<b>Epost:</b> ", $row["epost"] . "<br>";
             echo "<b>Tlf:</b> ", $row["tlf"] . "<br>";
-            echo "</td>"; // Close <td> tag
+            echo "</td>";
             $counter++;
         }
     }
-    echo "</tr>"; // Close the last row
+    echo "</tr>";
     echo "</table>";
 ?>
 
@@ -116,6 +113,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     <style>
+        main {
+            height: 100vh;
+        }
+
         body {
             background-color: aliceblue;
         }
