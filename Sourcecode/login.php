@@ -16,48 +16,40 @@
     <main>
 
         <form action="login.php" method="post">
-            <label for="navn">Brukernavn:</label><br>
-            <input type="text" id="navn" name="navn" required maxlength="20" size="100"><br>
+            <label for="brukernavn">Brukernavn:</label><br>
+            <input type="text" id="brukernavn" name="brukernavn" required maxlength="20" size="100"><br>
             <label for="passord">Passord:</label><br>
-            <input type="text" id="passord" name="passord" required maxlength="100"><br>
-            <input type="submit" value="Logg inn">
+            <input type="password" id="passord" name="passord" required maxlength="100"><br>
+            <input type="submit" name="Login" value="Logg inn">
             <input type="reset" value="Reset">
-            <?php
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $name = $_POST['navn'];
-                $email = $_POST['epost'];
-                $phone = $_POST['tlf'];
-                $postal = $_POST['postnummer'];
-                // Ser kom postnummret som blir lagdt til allerede finnes i databasen
-                $stmt = $mysqli->prepare("SELECT postnummer FROM postnummer Where postnummer = ?");
-                $stmt->bind_param("s", $_POST["postnummer"]);
-                $stmt->execute();
-                $exists = $stmt->fetch();
-                $stmt->close();
 
-                if (!$exists) {
-                    // Vis postnummret ikke fines:
-                    echo "Veligst oppgi et gyldig postnummer";
-                } elseif (isset($name) && isset($email) && isset($phone) && isset($postal)) {
-                    // Putter verdiene inn i databasen
-                    $sql = "INSERT INTO kunde (navn, epost, tlf, postnummer)
-                    VALUES ('$name', '$email', '$phone', '$postal')";
-                    if ($mysqli->query($sql) === TRUE) {
-                        echo "Bedrift lagt til";
-                        header("refresh:2; url=index.php");
+            <?php
+                // Håndter innloggingsskjemaet
+                if (isset($_POST['Login'])) {
+                    $brukernavn = $_POST["brukernavn"];
+                    $passord = $_POST["passord"];
+
+                    // Utfør en spørring for å finne brukeren i databasen
+                    $sql = "SELECT * FROM bruker WHERE brukernavn = '$brukernavn' AND passord = '$passord'";
+                    $result = $mysqli->query($sql);
+
+                    if ($result->num_rows == 1) {
+                        // Brukeren ble funnet, logg inn brukeren
+                        $_SESSION["username"] = $brukernavn;
+                        $_SESSION["authenticated"] = true;
+                        header("Location: index.php");
                     } else {
-                        echo "Error: " . $sql . "<br>" . $mysqli->error;
+                        // Brukeren ble ikke funnet, vis en feilmelding
+                        echo "<br>Ugyldig brukernavn eller passord.";
                     }
-                } else {
-                    echo "Et eller flere felt mangler";
                 }
-            }
             ?>
         </form>
     </main>
+
     <?php
     include 'footer.php'
-        ?>
+    ?>
 </body>
 </html>
 
@@ -88,10 +80,9 @@
         margin-bottom: 5px;
     }
 
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"] {
-        width: 85%;
+    input[type="text"], 
+    input[type="password"]{
+        width: 95%;
         padding: 10px;
         margin-bottom: 15px;
         border-radius: 5px;
