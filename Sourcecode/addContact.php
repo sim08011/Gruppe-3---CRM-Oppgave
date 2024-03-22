@@ -48,7 +48,7 @@
                     VALUES ('$firstName', '$sirName', '$position', '$department', '$phone', '$email', $kundeID)";
                     if ($mysqli->query($sql) === TRUE) {
                         echo "Kontaktperson lagt til";
-                        header("refresh:2; url=index.php");
+                        header("refresh:2; url=les.php?ID=$ID");
                     } else {
                         echo "Error: " . $sql . "<br>" . $mysqli->error;
                     }
