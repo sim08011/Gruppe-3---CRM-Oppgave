@@ -50,7 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var tds = document.querySelectorAll('.td-link');
     tds.forEach(function(td) {
         td.addEventListener('click', function() {
+            
             if (markMode) { // Check if mark mode is active
+                document.getElementById("Redigerknapp").style.display="inline";
                 if (td.classList.contains('markedColor')) {
                     td.classList.remove('markedColor');
                     td.style.backgroundColor = '#f0f8ff'; // Reset background color
@@ -91,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.textContent = 'Avbryt'; // Change button text
         } else {
             this.textContent = 'Merk'; // Change button text
+            document.getElementById("Redigerknapp").style.display="none";
             // Reset all marked colors and styles
             tds.forEach(function(td) {
                 td.classList.remove('markedColor');
@@ -135,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
             width: 5vw;
             background-color: #BD0000;
             color: white;
-            position: relative;
+            display: none;
         }
 
         #toggleButton{
