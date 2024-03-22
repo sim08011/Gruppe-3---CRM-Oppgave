@@ -12,9 +12,10 @@
     ?>  
     <main>
     <?php
+    $ID = $_GET['ID'];
         echo "<table>";
         $counter = 0;
-        if ($result = $mysqli->query("SELECT kontaktperson.*, kunde.navn AS kunde_navn FROM kontaktperson INNER JOIN kunde ON kontaktperson.kundeID = kunde.kundeID WHERE kontaktperson.kundeID = 15")) {
+        if ($result = $mysqli->query("SELECT kontaktperson.*, kunde.navn AS kunde_navn FROM kontaktperson INNER JOIN kunde ON kontaktperson.kundeID = kunde.kundeID WHERE kontaktperson.kundeID = $ID")) {
             if ($result->num_rows > 0) {
                 $rad = $result->fetch_assoc(); // Fetching the first row
                 $kunde_navn = $rad["kunde_navn"]; // Store the value of kunde.navn
@@ -39,10 +40,10 @@
                     }
                 } while ($rad = $result->fetch_assoc()); // Fetching rows inside the loop
             } else {
-                echo "<caption>No data found for the specified customer.</caption>";
+                echo "<caption>Ikke noe data i tabellen.</caption>";
             }
         } else {
-            echo "<caption>Error executing query.</caption>";
+            echo "<caption>Error</caption>";
         }
         echo "</table>";
     ?>

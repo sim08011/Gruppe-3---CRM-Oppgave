@@ -8,11 +8,11 @@ Prioriteringsnivåer:
 - Les av kontakpersoninformasjon: 1
 - Redigering av kontaktperson: 1
 - Legge til kontaktperson: 1
-- Redigering av bedrift: 1
+- Redigering av bedrift: 1 (Ferdig T)
 - Login-system: 2
 - Footerfiks: 2
 - Universell utforming: 2
-- Markering av flere bedrifter: 2
+- Markering av flere bedrifter: 2 (Ferdig T)
 - Søkefelt for bedrifter: 3
 - Logo for bedrifter: 3
 - Finpuss i mappestruktur: 3
