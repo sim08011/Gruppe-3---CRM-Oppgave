@@ -10,25 +10,24 @@
     <?php
         include 'nav.php';
         include 'connection.php';
+        $ID = isset($_GET['ID']) ? $_GET['ID'] : null; // Check if ID parameter exists in the URL
+        if($ID !== null) {
     ?>  
     <main>
-    
+    <section id="button-container">
+                    <button type="button" name="toggleButton" id="toggleButton">Merk</button>
+                    <button id="Redigerknapp">Rediger</button>
+                    <a href='addContact.php?id=<?php echo $ID; ?>'><button id='LeggtilKnapp'>Legg til</button></a>
+                </section>
     <?php
-    $ID = $_GET['ID'];
+
         echo "<table>";
         $counter = 0;
         if ($result = $mysqli->query("SELECT kontaktperson.*, kunde.navn AS kunde_navn FROM kontaktperson INNER JOIN kunde ON kontaktperson.kundeID = kunde.kundeID WHERE kontaktperson.kundeID = $ID")) {
-            if ($result->num_rows > 0) {
+            if ($result->num_rows > 0) { // Change this line to check if there are rows returned
                 $rad = $result->fetch_assoc(); // Fetching the first row
                 $kunde_navn = $rad["kunde_navn"]; // Store the value of kunde.navn
-                echo "<caption>$kunde_navn"; // Output the value of kunde.navn
-                
-                echo '<section id="button-container">';
-                echo '<button type="button" name="toggleButton" id="toggleButton">Merk</button>';
-                echo '<button id="Redigerknapp">Rediger</button>';
-                echo "<a href='addContact.php?id=$ID'><button id='LeggtilKnapp'>Legg til</button></a>";
-                echo '</section>';
-                echo '</</caption>';
+                echo "<h1>$kunde_navn </h1>"; // Output the value of kunde.navn
                 do {
                     if ($counter % 5 == 0) {    
                         echo "<tr>"; // Start a new row every five elements
@@ -54,8 +53,11 @@
             echo "<caption>Error</caption>";
         }
         echo "</table>";
+    } else {
+        echo "<p>Missing ID parameter in the URL.</p>";
+    }
     ?>
-    </main>
+</main>
 
     <?php
         include 'footer.php';
@@ -81,8 +83,11 @@
         margin-bottom: 50px;
         
     }
-    caption {
-        font-size: 3rem;
+    h1 {
+        text-align: center;
+    }
+    p {
+        font-size: small;
     }
 
     td {
