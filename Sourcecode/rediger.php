@@ -30,14 +30,11 @@
                 $query = "SELECT kundeID, navn, postnummer, tlf, epost FROM kunde WHERE kundeID='$kundeID'";
                 $result = $mysqli->query($query);
 
-                // Check if there are results
                 if ($result && $result->num_rows > 0) {
-                    // Output data of each row
                     while ($row = $result->fetch_assoc()) {
                         echo "<table class='bordered-table'>";
                         echo "<td>";
                         echo "<b>KundeID: </b>" . $row["kundeID"] . "<br>";
-                        // Input fields with unique names for each kunde record
                         echo "<b>Navn: </b>" . "<input name='navn_$kundeID' value='" . $row['navn'] . "'>" . "<br>";
                         echo "<b>Postnummer: </b>" . "<input name='postnr_$kundeID' required maxlength='4' value='" . $row['postnummer'] . "'>" . "<br>";
                         echo "<b>Telefon: </b>" . "<input name='tlf_$kundeID' value='" . $row['tlf'] . "'>" . "<br>";
