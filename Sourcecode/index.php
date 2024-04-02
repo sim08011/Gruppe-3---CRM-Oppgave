@@ -143,7 +143,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         #buttonOgTable-container{
-            margin: auto;
+            margin-left: auto;
+            margin-right: auto;
             max-width: 80vw;
         }
 
@@ -180,8 +181,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         table {
-            margin-left: auto;
-            margin-right: auto;
             margin-top: 1%;
             border-collapse: separate;
             border-spacing: 10px;
