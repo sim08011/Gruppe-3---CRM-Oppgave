@@ -143,9 +143,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         #buttonOgTable-container{
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 80vw;
+            margin: auto;
+            max-width: 75%;
         }
 
         #LeggtilKnapp{
