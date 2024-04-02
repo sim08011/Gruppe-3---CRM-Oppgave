@@ -1,4 +1,4 @@
-INSERT INTO `poststed` (`postnummer`, `poststed`) VALUES
+INSERT INTO `postnummer` (`postnummer`, `poststed`) VALUES
 ('0001', 'OSLO'),
 ('0010', 'OSLO'),
 ('0015', 'OSLO'),
@@ -2650,7 +2650,7 @@ INSERT INTO `poststed` (`postnummer`, `poststed`) VALUES
 ('4864', 'ÅMLI'),
 ('4865', 'ÅMLI'),
 ('4868', 'SELÅSVATN');
-INSERT INTO `poststed` (`postnummer`, `poststed`) VALUES
+INSERT INTO `postnummer` (`postnummer`, `poststed`) VALUES
 ('4869', 'DØLEMO'),
 ('4870', 'FEVIK'),
 ('4876', 'GRIMSTAD'),
