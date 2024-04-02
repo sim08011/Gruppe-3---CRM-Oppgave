@@ -20,7 +20,6 @@
     display: block;
     color: #000;
     text-align: center;
-    padding: 8px 8;
     text-decoration: none;
     padding-right: 50px;
     padding-left: 50px;

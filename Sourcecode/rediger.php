@@ -43,7 +43,7 @@ if($_SESSION["authenticated"] == false){
                     echo "<b>Postnummer: </b>" . "<input name='postnr_$kundeID' required maxlength='4' value='" . $row['postnummer'] . "'>" . "<br>";
                     echo "<b>Telefon: </b>" . "<input name='tlf_$kundeID' required value='" . $row['tlf'] . "'>" . "<br>";
                     echo "<b>Epost: </b>" . "<input type='email' name='epost_$kundeID' required value='" . $row['epost'] . "'>" . "<br>";
-                    echo "<b>Nettside: </b>" . "<input type='email' name='nettsted_$kundeID' value='" . $row['nettsted'] . "'>" . "<br>";
+                    echo "<b>Nettside: </b>" . "<input type='text' name='nettsted_$kundeID' value='" . $row['nettsted'] . "'>" . "<br>";
                     echo "</td>";
                     $counter++;
                 }
@@ -64,12 +64,13 @@ if($_SESSION["authenticated"] == false){
                     $postnr = $_POST["postnr_$kundeID"];
                     $tlf = $_POST["tlf_$kundeID"];
                     $epost = $_POST["epost_$kundeID"];
+                    $nettsted = $_POST["nettsted_$kundeID"];
                     
                     // Update kunde record in the database
-                    $updateQuery = "UPDATE kunde SET navn='$navn', postnummer='$postnr', tlf='$tlf', epost='$epost' WHERE kundeID='$kundeID'";
+                    $updateQuery = "UPDATE kunde SET navn='$navn', postnummer='$postnr', tlf='$tlf', epost='$epost', nettsted='$nettsted' WHERE kundeID='$kundeID'";
                     $mysqli->query($updateQuery);
                 }
-                echo "<p>BRA!</p>";
+                header("refresh:0.5; url=index.php");
             }
     ?>
 

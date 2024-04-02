@@ -23,12 +23,11 @@ else{
         include 'header.php';
         include 'connection.php'
     ?>
-    <div id="button-container">
-        <button type="button" name="toggleButton" id="toggleButton">Merk</button> <!-- Knapp for å merkere -->
-        <button id="Redigerknapp">Rediger</button> <!-- Knapp for å redigere -->
-        <button id="SlettKnapp">Slett</button> <!-- Knapp for å slette -->
-        <a href="add.php"><button id="LeggtilKnapp">Legg til</button></a> <!-- Knapp for å Legge til bedrift -->
-    </div>
+<div id="buttonOgTable-container">
+    <button type="button" name="toggleButton" id="toggleButton">Merk</button> <!-- Knapp for å merkere -->
+    <button id="Redigerknapp">Rediger</button> <!-- Knapp for å redigere -->
+    <button id="SlettKnapp">Slett</button> <!-- Knapp for å slette -->
+    <a href="add.php"><button id="LeggtilKnapp">Legg til</button></a> <!-- Knapp for å Legge til bedrift -->
 <?php
     echo "<table class='bordered-table'>"; // Lager en ny table for alle bedriftene
     $counter = 0; // Antall bedrifter på en linje
@@ -52,6 +51,7 @@ else{
     echo "</tr>"; // Avslutter rekke etter 5 bedrifter
     echo "</table>"; // Avslutter table
 ?>
+</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -142,40 +142,40 @@ document.addEventListener('DOMContentLoaded', function() {
             background-color: aliceblue;
         }
 
-        #button-container{
-            margin-left: 8%;
-        
+        #buttonOgTable-container{
+            margin: auto;
+            width: 80vw;
         }
 
         #LeggtilKnapp{
-            width: 5vw;
+            width: 6%;
             background-color: #3262ab;
             color: white;
         }
 
         #Redigerknapp {
-            width: 5vw;
+            width: 6%;
             background-color: #BD0000;
             color: white;
             display: none;
         }
 
         #SlettKnapp {
-            width: 5vw;
+            width: 6%;
             background-color: #BD0000;
             color: white;
             display: none;
         }
 
         #toggleButton{
-            width: 4vw;
+            width: 6%;
             background-color: grey;
             color: white;
 
         }
 
         button{
-            width: 13vw;
+            width: 6%;
             cursor: pointer;
         }
 
