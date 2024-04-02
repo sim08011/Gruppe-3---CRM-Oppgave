@@ -20,27 +20,21 @@ if($_SESSION["authenticated"] == false){
         include 'nav.php';
         include 'connection.php';
 
-        // Check if the database connection is initialized
-        if ($mysqli === null) {
-            die("Database connection is not initialized.");
-        }
-
         // Check if kundeIDs parameter is set in the URL
         if (isset($_GET['kundeIDs'])) {
             // Decode the URL-encoded JSON string and convert it to a PHP array
             $selectedKundeIDs = json_decode($_GET['kundeIDs'], true);
 
-            // Output a form for updating kunde records
             echo "<form method='post'>";
             // Iterate over each kundeID
             echo "<table class='bordered-table'>";
+            $counter = 0;
             foreach ($selectedKundeIDs as $kundeID) {
                 // Prepare and execute the SQL query
                 $query = "SELECT kundeID, navn, postnummer, tlf, epost, nettsted FROM kunde WHERE kundeID='$kundeID'";
                 $result = $mysqli->query($query);
-                $counter = 0;
                 while ($row = $result->fetch_assoc()) { 
-                    if ($counter % 2 == 0 && $counter != 0) {
+                    if ($counter % 3 == 0 && $counter != 0) {
                         echo "</tr><tr>";
                     }
                     echo "<td>";
