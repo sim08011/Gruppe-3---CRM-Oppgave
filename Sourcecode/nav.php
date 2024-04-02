@@ -1,6 +1,6 @@
 <nav>
     <a href="index.php"><h2>Hjem</h2></a>
-    <a href="login.php"><h2>Logg inn</h2></a>
+    <a href="login.php"><h2><?php   session_start();   if($_SESSION['authenticated'] == true){echo "Logg ut";}   else{echo "Logg inn";}   ?></h2></a>
 </nav>
 <style>
 
