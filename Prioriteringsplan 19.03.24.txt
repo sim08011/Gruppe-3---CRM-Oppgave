@@ -9,7 +9,7 @@ Prioriteringsnivåer:
 - Redigering av kontaktperson: 1
 - Legge til kontaktperson: 1 ( Ferdig S.T og S.J)
 - Redigering av bedrift: 1 (Ferdig T)
-- Login-system: 2 
+- Login-system: 2 (Ferdig S.J)
 - Footerfiks: 2 
 - Universell utforming: 2 
 - Markering av flere bedrifter: 2 (Ferdig T)
