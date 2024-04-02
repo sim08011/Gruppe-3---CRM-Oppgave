@@ -20,7 +20,7 @@ if($_SESSION["authenticated"] == true){
 <body>
     <?php
     include 'nav.php';
-    include 'connection.php'
+    include 'connection.php';
         ?>
     <main>
 

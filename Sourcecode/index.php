@@ -1,3 +1,13 @@
+<?php
+session_start();
+if($_SESSION["authenticated"] == true){
+    echo "<style>#button-container{display: inline}</style>";
+}
+else{
+    echo "<style>#button-container{display: none}</style>";
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -134,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         #button-container{
             margin-left: 8%;
+        
         }
 
         #LeggtilKnapp{
