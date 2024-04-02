@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         #buttonOgTable-container{
             margin: auto;
-            max-width: 80%;
+            max-width: 80vw;
         }
 
         #LeggtilKnapp{
