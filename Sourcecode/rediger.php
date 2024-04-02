@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bitnami.css">
-    <title>Document</title>
+    <title>Redigering</title>
 </head>
 <body>
     <br><br><br><br>
@@ -25,28 +25,31 @@
             // Output a form for updating kunde records
             echo "<form method='post'>";
             // Iterate over each kundeID
+            echo "<table class='bordered-table'>";
             foreach ($selectedKundeIDs as $kundeID) {
                 // Prepare and execute the SQL query
-                $query = "SELECT kundeID, navn, postnummer, tlf, epost FROM kunde WHERE kundeID='$kundeID'";
+                $query = "SELECT kundeID, navn, postnummer, tlf, epost, nettsted FROM kunde WHERE kundeID='$kundeID'";
                 $result = $mysqli->query($query);
-
-                if ($result && $result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<table class='bordered-table'>";
-                        echo "<td>";
-                        echo "<b>KundeID: </b>" . $row["kundeID"] . "<br>";
-                        echo "<b>Navn: </b>" . "<input name='navn_$kundeID' value='" . $row['navn'] . "'>" . "<br>";
-                        echo "<b>Postnummer: </b>" . "<input name='postnr_$kundeID' required maxlength='4' value='" . $row['postnummer'] . "'>" . "<br>";
-                        echo "<b>Telefon: </b>" . "<input name='tlf_$kundeID' value='" . $row['tlf'] . "'>" . "<br>";
-                        echo "<b>Epost: </b>" . "<input name='epost_$kundeID' value='" . $row['epost'] . "'>" . "<br>";
-                        echo "</td>";
-                        echo "</table>";
+                $counter = 0;
+                while ($row = $result->fetch_assoc()) { 
+                    if ($counter % 2 == 0 && $counter != 0) {
+                        echo "</tr><tr>";
                     }
-                } else {
-                    // Output a message if no results found for the kundeID
-                    echo "<p>No results found for kundeID: $kundeID</p>";
+                    echo "<td>";
+                    echo "<b>KundeID: </b>" . $row["kundeID"] . "<br>";
+                    echo "<b>Navn: </b>" . "<input name='navn_$kundeID' required value='" . $row['navn'] . "'>" . "<br>";
+                    echo "<b>Postnummer: </b>" . "<input name='postnr_$kundeID' required maxlength='4' value='" . $row['postnummer'] . "'>" . "<br>";
+                    echo "<b>Telefon: </b>" . "<input name='tlf_$kundeID' required value='" . $row['tlf'] . "'>" . "<br>";
+                    echo "<b>Epost: </b>" . "<input type='email' name='epost_$kundeID' required value='" . $row['epost'] . "'>" . "<br>";
+                    echo "<b>Nettside: </b>" . "<input type='email' name='nettsted_$kundeID' value='" . $row['nettsted'] . "'>" . "<br>";
+                    echo "</td>";
+                    $counter++;
                 }
             }
+            echo "</tr>"; // Avslutter rekke etter 5 bedrifter
+            echo "</table>"; // Avslutter table
+            }
+
             // Submit button
             echo "<input type='submit' name='Oppdater' value='Oppdater'>";
             echo "</form>";
@@ -66,9 +69,6 @@
                 }
                 echo "<p>BRA!</p>";
             }
-        } else {
-            echo "No kundeIDs selected.";
-        }
     ?>
 
     <style>
