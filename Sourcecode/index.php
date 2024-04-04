@@ -28,7 +28,6 @@ else{
             <a href="add.php"><button id="LeggtilKnapp">Legg til</button></a> <!-- Knapp for å Legge til bedrift -->
             <button id="Redigerknapp">Rediger</button> <!-- Knapp for å redigere -->
             <button id="SlettKnapp">Slett</button> <!-- Knapp for å slette -->
-            <a href="add.php"><button id="LeggtilKnapp">Legg til</button></a> <!-- Knapp for å Legge til bedrift -->
         <?php
             echo "<table class='bordered-table'>"; // Lager en ny table for alle bedriftene
             $counter = 0; // Antall bedrifter på en linje
