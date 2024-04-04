@@ -1,13 +1,4 @@
-<?php
-session_start();
-if($_SESSION["authenticated"] == true){
-    echo "<style>button{display: inline}</style>";
-}
-else{
-    echo "<style>button{display: none}</style>";
-}
 
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,8 +12,16 @@ else{
     <?php
         include 'nav.php';
         include 'header.php';
-        include 'connection.php'
-        ?>
+        include 'connection.php';
+
+        if($_SESSION["authenticated"] == true){
+            echo "<style>button{display: inline}</style>";
+        }
+        else{
+            echo "<style>button{display: none}</style>";
+        }
+
+    ?>
         <div id="buttonOgTable-container">
             <button type="button" name="toggleButton" id="toggleButton">Merk</button> <!-- Knapp for å merkere -->
             <a href="add.php"><button id="LeggtilKnapp">Legg til</button></a> <!-- Knapp for å Legge til bedrift -->

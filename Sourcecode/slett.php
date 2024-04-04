@@ -1,10 +1,3 @@
-<?php
-session_start();
-
-if($_SESSION["authenticated"] == false){
-    header("Location: index.php");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +9,7 @@ if($_SESSION["authenticated"] == false){
     <?php
     include 'nav.php';
     include 'connection.php';
+    include 'authenticate.php';
 
     if (isset($_GET['kundeIDs'])) {
         // Decode the URL-encoded JSON string and convert it to a PHP array

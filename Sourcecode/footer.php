@@ -11,7 +11,7 @@
             <a href="https://im22son21061.imporsgrunn.no" target="_blank">Portfolio</a>
         </section>
         <section class="developer">
-            <p>Simon Johansen</p>
+            <p>Simon Johnsen</p>
             <a href="https://im22sim08011.imporsgrunn.no"  target="_blank">Portfolio</a>
         </section>
         <section class="developer">

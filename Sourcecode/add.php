@@ -1,10 +1,4 @@
-<?php
-session_start();
 
-if($_SESSION["authenticated"] == false){
-    header("Location: index.php");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +12,7 @@ if($_SESSION["authenticated"] == false){
 <body>
     <?php
     include 'nav.php';
+    include 'authenticate.php';
     include 'connection.php'
         ?>
     <main>
@@ -27,11 +22,11 @@ if($_SESSION["authenticated"] == false){
             <input type="text" id="navn" name="navn" required maxlength="45" size="100"><br>
             <label for="epost">Epost:</label><br>
             <input type="email" id="epost" name="epost" required maxlength="100"><br>
-            <label for="tlf">Telefon nummer:</label><br>
-            <input type="tel" id="tlf" name="tlf" required minlength="12" required maxlength="12" ><br>
-            <label for="postnummer">Post kode:</label><br>
+            <label for="tlf">Telefonnummer:</label><br>
+            <input type="tel" id="tlf" name="tlf" required minlength="8" required maxlength="12" ><br>
+            <label for="postnummer">Postnummer:</label><br>
             <input type="text" id="postnummer" name="postnummer" required maxlength="4"><br>
-            <input type="submit" value="Leggtil">
+            <input type="submit" value="Legg til">
             <input type="reset" value="Reset">
             <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {

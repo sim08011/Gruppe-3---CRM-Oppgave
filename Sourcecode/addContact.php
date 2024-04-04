@@ -1,10 +1,3 @@
-<?php
-session_start();
-
-if($_SESSION["authenticated"] == false){
-    header("Location: index.php");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,26 +9,28 @@ if($_SESSION["authenticated"] == false){
 </head>
 
 <body>
+    
     <?php
     include 'nav.php';
     include 'connection.php';
+    include 'authenticate.php';
     $ID = isset($_GET['id']) ? $_GET['id'] : ''; // Set $ID to $_GET['id'] if it exists, otherwise set it to an empty string
         ?>
     <main>
 
     <form action="addContact.php?id=<?php echo $ID; ?>" method="post">
-            <label for="fornavn">Fornavn: *</label><br>
-            <input type="text" id="fornavn" name="fornavn" required maxlength="45" size="100"><br>
+            <label for="fornavn">Fornavn: </label><br>
+            <input type="text" name="fornavn" required maxlength="45" size="100"><br>
             <label for="etternavn">Etternavn: *</label><br>
-            <input type="text" id="etternavn" name="etternavn" required maxlength="45" size="100"><br>
+            <input type="text" name="etternavn" required maxlength="45" size="100"><br>
             <label for="stilling">Stilling: *</label><br>
-            <input type="text" id="stilling" name="stilling" required maxlength="80" size="100"><br>
+            <input type="text" name="stilling" required maxlength="80" size="100"><br>
             <label for="avdeling">Avdeling: *</label><br>
-            <input type="text" id="avdeling" name="avdeling" required maxlength="80"><br>
+            <input type="text" name="avdeling" required maxlength="80"><br>
             <label for="tlf">Telefonnummer: *</label><br>
-            <input type="tel" id="tlf" name="tlf" required maxlength="12" ><br>
+            <input type="tel" name="tlf" required maxlength="12" ><br>
             <label for="epost">Epost: *</label><br>
-            <input type="email" id="epost" name="epost" required maxlength="100" ><br>
+            <input type="email" name="epost" required maxlength="100" ><br>
             <input type="submit" value="Legg til">
             <input type="reset" value="Reset">
             <?php
