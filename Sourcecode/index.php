@@ -1,10 +1,10 @@
 <?php
 session_start();
 if($_SESSION["authenticated"] == true){
-    echo "<style>#button-container{display: inline}</style>";
+    echo "<style>button{display: inline}</style>";
 }
 else{
-    echo "<style>#button-container{display: none}</style>";
+    echo "<style>button{display: none}</style>";
 }
 
 ?>
