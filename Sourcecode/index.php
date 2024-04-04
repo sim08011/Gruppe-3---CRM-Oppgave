@@ -22,15 +22,16 @@ else{
         include 'nav.php';
         include 'header.php';
         include 'connection.php'
-    ?>
-<div id="buttonOgTable-container">
-    <button type="button" name="toggleButton" id="toggleButton">Merk</button> <!-- Knapp for å merkere -->
-    <button id="Redigerknapp">Rediger</button> <!-- Knapp for å redigere -->
-    <button id="SlettKnapp">Slett</button> <!-- Knapp for å slette -->
-    <a href="add.php"><button id="LeggtilKnapp">Legg til</button></a> <!-- Knapp for å Legge til bedrift -->
-<?php
-    echo "<table class='bordered-table'>"; // Lager en ny table for alle bedriftene
-    $counter = 0; // Antall bedrifter på en linje
+        ?>
+        <div id="buttonOgTable-container">
+            <button type="button" name="toggleButton" id="toggleButton">Merk</button> <!-- Knapp for å merkere -->
+            <a href="add.php"><button id="LeggtilKnapp">Legg til</button></a> <!-- Knapp for å Legge til bedrift -->
+            <button id="Redigerknapp">Rediger</button> <!-- Knapp for å redigere -->
+            <button id="SlettKnapp">Slett</button> <!-- Knapp for å slette -->
+            <a href="add.php"><button id="LeggtilKnapp">Legg til</button></a> <!-- Knapp for å Legge til bedrift -->
+        <?php
+            echo "<table class='bordered-table'>"; // Lager en ny table for alle bedriftene
+            $counter = 0; // Antall bedrifter på en linje
     echo "<tr>"; // Starter en ny rekke 
     if ($result = $mysqli->query("SELECT kunde.*, postnummer.poststed AS poststed FROM kunde
                                 LEFT JOIN postnummer ON kunde.postnummer = postnummer.postnummer")) { // Henter all informasjon samt Postnummer og Poststed
@@ -149,13 +150,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         #LeggtilKnapp{
             width: 6%;
-            background-color: #3262ab;
+            background-color: #57B35E;
             color: white;
         }
 
         #Redigerknapp {
             width: 6%;
-            background-color: #BD0000;
+            background-color: #3262ab;
             color: white;
             display: none;
         }
