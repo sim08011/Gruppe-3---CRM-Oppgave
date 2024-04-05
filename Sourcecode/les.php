@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
     document.getElementById('SlettKnapp').addEventListener('click', function() {
     // Construct the URL with both IDs
-    var url = '?kontaktIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs)) + '&ID=' + encodeURIComponent(<?php echo $ID; ?>);
+    var url = 'deleteContact.php?kontaktIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs)) + '&ID=' + encodeURIComponent(<?php echo $ID; ?>);
     // Redirect to the appropriate URL
     window.location.href = url;
 });
