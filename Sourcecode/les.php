@@ -11,6 +11,7 @@
     include 'nav.php';
     include 'connection.php';
     $ID = isset($_GET['ID']) ? $_GET['ID'] : null; // Check if ID parameter exists in the URL
+    if(isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == true){echo "<style>button{display: inline}</style>";} else{echo "<style>button{display: none}</style>";}
     if($ID !== null) {
 ?>  
     <main>
@@ -167,9 +168,10 @@ document.addEventListener('DOMContentLoaded', function() {
         border: 2px solid black;
     }
 
-    #button-container{
-        margin-left: 73%;
-    }
+    #buttonOgTable-container{
+            margin: auto;
+            max-width: 75%;
+        }
 
         #LeggtilKnapp{
             width: 6%;
@@ -195,6 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
             width: 6%;
             background-color: grey;
             color: white;
+
         }
 
         button{
