@@ -7,7 +7,7 @@
     <title>Hovedside</title>
 </head>
 <body>
-
+<main>
     <?php
         include 'nav.php';
         include 'header.php';
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
-
+</main>
 <?php
     include 'footer.php';
 ?>
@@ -125,8 +125,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
         main {
-            height: 100vh;
+            min-height: 70vh;
         }
 
         body {

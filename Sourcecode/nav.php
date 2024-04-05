@@ -6,11 +6,11 @@
 
     nav {
     overflow: hidden;
+    padding: 5px;
     background-color: #FFF;
     position: fixed;
     top: 0;
     width: 100%;
-    height: 4rem;
     border-bottom: 2px solid #000;
     margin-bottom: 25px;
     }
