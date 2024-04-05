@@ -14,9 +14,11 @@
     if($ID !== null) {
 ?>  
     <main>
-        <button type="button" name="toggleButton" id="toggleButton">Merk</button>
-        <button id="Redigerknapp">Rediger</button>
-        <a href='addContact.php?id=<?php echo $ID; ?>'><button id='LeggtilKnapp'>Legg til</button></a>
+    <div id="buttonOgTable-container">
+            <button type="button" name="toggleButton" id="toggleButton">Merk</button> <!-- Knapp for å merkere -->
+            <a href="addContact.php"><button id="LeggtilKnapp">Legg til</button></a> <!-- Knapp for å Legge til bedrift -->
+            <button id="Redigerknapp">Rediger</button> <!-- Knapp for å redigere -->
+            <button id="SlettKnapp">Slett</button> <!-- Knapp for å slette -->
 <?php
     echo "<table>";
     if ($result = $mysqli->query("SELECT kontaktperson.*, kunde.navn AS kunde_navn FROM kontaktperson INNER JOIN kunde ON kontaktperson.kundeID = kunde.kundeID WHERE kontaktperson.kundeID = $ID")) {
@@ -71,12 +73,14 @@ document.addEventListener('DOMContentLoaded', function() {
     tds.forEach(function(td) { // For hver td
         td.addEventListener('click', function() { // Funksjon for når du klikker på en kunde
             if (markMode) { // Sjekker om du har klikket på merk knapp
+                document.getElementById("Redigerknapp").style.display = "inline"; //Endrer synligheten for Rediger knapp
+                document.getElementById("SlettKnapp").style.display = "inline"; //Endrer synligheten for Rediger knapp
+
                 if (td.classList.contains('markedColor')) { //Hvis td har fargen som er markerings farge
                     td.classList.remove('markedColor'); //Fjerner fargen på td
                     td.style.backgroundColor = '';
 
-                    // Fjerner kundeID fra array 
-                    var kundeIDIndex = selectedKundeIDs.indexOf(td.getAttribute('data-kundeid'));
+                    var kundeIDIndex = selectedKundeIDs.indexOf(td.getAttribute('data-kontaktid'));
                     if (kundeIDIndex !== -1) {
                         selectedKundeIDs.splice(kundeIDIndex, 1);
                     }
@@ -89,13 +93,24 @@ document.addEventListener('DOMContentLoaded', function() {
                     selectedKundeIDs.push(kundeID); 
                 }
                 console.log('Selected kundeIDs:', selectedKundeIDs); //Printer ut (Bare for å sjekke at det fungerer)
-            } else {
-                //Lager en ny url med kundeID slik at den printer ut riktig informasjon
-                window.location.href = 'les.php?ID=' + td.getAttribute("data-kundeid");
             }
         });
 
     });
+
+
+    document.getElementById('Redigerknapp').addEventListener('click', function() {
+    // Lager en url med alle kundeID som ligger i array
+    var url = 'editContact.php?kontaktIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs)) + '&ID=' + encodeURIComponent(<?php echo $ID; ?>);
+    // Sender deg til riktig sted med urlen
+    window.location.href = url;
+});
+    document.getElementById('SlettKnapp').addEventListener('click', function() {
+    // Construct the URL with both IDs
+    var url = 'slett.php?kontaktIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs)) + '&ID=' + encodeURIComponent(<?php echo $ID; ?>);
+    // Redirect to the appropriate URL
+    window.location.href = url;
+});
 
     document.getElementById('toggleButton').addEventListener('click', function() {
         markMode = !markMode; // Skrur på merkerings modus
@@ -103,6 +118,8 @@ document.addEventListener('DOMContentLoaded', function() {
             this.textContent = 'Avbryt'; // Hvis du har klikket på teksten endre knapp tekst til avbryt
         } else {
             this.textContent = 'Merk'; // Endre den til Merk hvis du avbryter
+            document.getElementById("Redigerknapp").style.display="none"; //Skjuler Rediger knapp hvis du avbryter
+            document.getElementById("SlettKnapp").style.display="none";
             // Resetter alle markerte td
             tds.forEach(function(td) {
                 td.classList.remove('markedColor');
@@ -155,23 +172,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
         #LeggtilKnapp{
-            width: 5vw;
-            background-color: #3262ab;
+            width: 6%;
+            background-color: #57B35E;
             color: white;
         }
 
         #Redigerknapp {
-            width: 5vw;
+            width: 6%;
+            background-color: #3262ab;
+            color: white;
+            display: none;
+        }
+
+        #SlettKnapp {
+            width: 6%;
             background-color: #BD0000;
             color: white;
-            position: relative;
+            display: none;
         }
 
         #toggleButton{
-            width: 4vw;
+            width: 6%;
             background-color: grey;
             color: white;
-
         }
 
         button{

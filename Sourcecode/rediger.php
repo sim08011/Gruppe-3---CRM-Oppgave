@@ -5,6 +5,16 @@ if($_SESSION["authenticated"] == false){
     header("Location: index.php");
 }
 
+        $ID = isset($_GET['ID']) ? $_GET['ID'] : null;
+
+        // Check if the ID is not null and do further processing if needed
+        if($ID !== null) {
+            // Your code here
+            echo "The ID is: " . $ID;
+        } else {
+            echo "Missing ID parameter in the URL.";
+        }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,9 +79,10 @@ if($_SESSION["authenticated"] == false){
                     // Update kunde record in the database
                     $updateQuery = "UPDATE kunde SET navn='$navn', postnummer='$postnr', tlf='$tlf', epost='$epost', nettsted='$nettsted' WHERE kundeID='$kundeID'";
                     $mysqli->query($updateQuery);
+                    header("refresh:0.1; url=index.php");
                 }
-                header("refresh:0.5; url=index.php");
-            }
+
+                }
     ?>
 
     <style>
