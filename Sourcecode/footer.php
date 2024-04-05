@@ -24,15 +24,28 @@
 
 
 <style>
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 main {
-            min-height: 70vh;
-    }
+    flex: 1;
+}
 
 footer {
-    height: 10vh;
-    left: 0;
-    bottom: 0;
-    width: 100%;
+    flex-shrink: 0;
     background-color: #333;
     color: #fff;
     text-align: center;
