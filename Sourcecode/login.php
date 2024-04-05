@@ -1,12 +1,3 @@
-<?php
-session_start();
-
-if($_SESSION["authenticated"] == true){
-    $_SESSION["authenticated"] = false;
-    header("Location: index.php");
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +12,12 @@ if($_SESSION["authenticated"] == true){
     <?php
     include 'nav.php';
     include 'connection.php';
-        ?>
+
+    if($_SESSION["authenticated"] == true){
+        $_SESSION["authenticated"] = false;
+        header("Location: index.php");
+    }
+    ?>
     <main>
 
         <form action="login.php" method="post">
