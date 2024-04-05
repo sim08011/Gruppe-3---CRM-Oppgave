@@ -24,7 +24,9 @@
 
 
 <style>
-
+main {
+            min-height: 70vh;
+    }
 
 footer {
     height: 10vh;
