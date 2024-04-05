@@ -184,4 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
             border: 2px solid black;
             cursor: pointer;
         }
+        a {
+            text-decoration: none;
+        }
     </style>
