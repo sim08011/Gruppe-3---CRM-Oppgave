@@ -17,7 +17,7 @@
     <main>
     <div id="buttonOgTable-container">
             <button type="button" name="toggleButton" id="toggleButton">Merk</button> <!-- Knapp for å merkere -->
-            <a href="addContact.php"><button id="LeggtilKnapp">Legg til</button></a> <!-- Knapp for å Legge til bedrift -->
+            <button id="LeggtilKnapp">Legg til</button> <!-- Knapp for å Legge til bedrift -->
             <button id="Redigerknapp">Rediger</button> <!-- Knapp for å redigere -->
             <button id="SlettKnapp">Slett</button> <!-- Knapp for å slette -->
 <?php
@@ -109,6 +109,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('SlettKnapp').addEventListener('click', function() {
     // Construct the URL with both IDs
     var url = 'deleteContact.php?kontaktIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs)) + '&ID=' + encodeURIComponent(<?php echo $ID; ?>);
+    // Redirect to the appropriate URL
+    window.location.href = url;
+});
+document.getElementById('LeggtilKnapp').addEventListener('click', function() {
+    // Construct the URL with both IDs
+    var url = 'addContact.php?ID=' + encodeURIComponent(<?php echo $ID; ?>);
     // Redirect to the appropriate URL
     window.location.href = url;
 });

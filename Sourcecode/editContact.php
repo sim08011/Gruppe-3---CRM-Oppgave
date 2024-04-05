@@ -29,6 +29,7 @@ if($_SESSION["authenticated"] == false){
     <?php
         include 'nav.php';
         include 'connection.php';
+        include 'authenticate.php';
 
     if (isset($_GET['kontaktIDs'])) {
                 // Decode the URL-encoded JSON string and convert it to a PHP array

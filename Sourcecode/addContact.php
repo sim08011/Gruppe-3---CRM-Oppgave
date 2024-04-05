@@ -14,11 +14,11 @@
     include 'nav.php';
     include 'connection.php';
     include 'authenticate.php';
-    $ID = isset($_GET['id']) ? $_GET['id'] : ''; // Set $ID to $_GET['id'] if it exists, otherwise set it to an empty string
+    $ID = isset($_GET['ID']) ? $_GET['ID'] : ''; // Set $ID to $_GET['id'] if it exists, otherwise set it to an empty string
         ?>
     <main>
 
-    <form action="addContact.php?id=<?php echo $ID; ?>" method="post">
+    <form action="addContact.php?ID=<?php echo $ID; ?>" method="post">
             <label for="fornavn">Fornavn: </label><br>
             <input type="text" name="fornavn" required maxlength="45" size="100"><br>
             <label for="etternavn">Etternavn: *</label><br>
@@ -47,7 +47,7 @@
 
                 if (isset($firstName) && isset($sirName) && isset($position) && isset($department) && isset($phone) && isset($email)) {
                     $sql = "INSERT INTO kontaktperson (fornavn, etternavn, stilling, avdeling, tlf, epost, kundeID)
-                    VALUES ('$firstName', '$sirName', '$position', '$department', '$phone', '$email', $kundeID)";
+                    VALUES ('$firstName', '$sirName', '$position', '$department', '$phone', '$email', '$kundeID')";                    
                     if ($mysqli->query($sql) === TRUE) {
                         echo "Kontaktperson lagt til";
                         header("refresh:2; url=les.php?ID=$ID");

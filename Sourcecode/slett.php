@@ -36,20 +36,7 @@
 
             header("refresh:0.5; url=index.php");
         }
-    }
-
-    if (isset($_GET['kontaktIDs'])) {
-        $selectedkontaktIDs = json_decode($_GET['kontaktIDs'], true);
-        foreach ($selectedkontaktIDs as $kontaktIDs) {
-            // Prepare the SQL query
-            $sql_kontaktpersoner = "DELETE FROM kontaktperson WHERE kontaktpersonID = '$kontaktIDs'";
-
-            $mysqli->query($sql_kontaktpersoner);
-
-            header("refresh:0.5; url=les.php?ID=" . $ID);
-        }
-    }
-    
+    }    
     ?>
 
     <style>
