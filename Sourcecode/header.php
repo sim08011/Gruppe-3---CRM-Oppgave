@@ -9,8 +9,8 @@
 <style>
 
     h1 {
-        margin-top: 10%;
-        margin-left: 40%;
+        margin-top: 5%;
+        text-align: center;
         font-size: 70px;
         font-family: "Alata", sans-serif;
         font-style: normal;

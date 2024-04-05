@@ -129,9 +129,6 @@ document.addEventListener('DOMContentLoaded', function() {
             margin: 0;
             padding: 0;
         }
-        main {
-            min-height: 70vh;
-        }
 
         body {
             background-color: aliceblue;
