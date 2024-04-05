@@ -14,12 +14,7 @@
         include 'header.php';
         include 'connection.php';
 
-        if($_SESSION["authenticated"] == true){
-            echo "<style>button{display: inline}</style>";
-        }
-        else{
-            echo "<style>button{display: none}</style>";
-        }
+
 
     ?>
         <div id="buttonOgTable-container">
