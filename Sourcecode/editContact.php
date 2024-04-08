@@ -1,10 +1,4 @@
 <?php
-session_start();
-
-if($_SESSION["authenticated"] == false){
-    header("Location: index.php");
-}
-
         $ID = isset($_GET['ID']) ? $_GET['ID'] : null;
 
         // Check if the ID is not null and do further processing if needed
@@ -64,7 +58,7 @@ if($_SESSION["authenticated"] == false){
                 }
 
                 // Submit button
-                echo "<input type='submit' name='Oppdater' value='Oppdater'>";
+                echo "<input id='Oppdater' type='submit' name='Oppdater' value='Oppdater'>";
                 echo "</form>";
 
                 if (isset($_POST["Oppdater"])) {
@@ -85,8 +79,18 @@ if($_SESSION["authenticated"] == false){
                 }
     ?>
 <style>
+    *{
+            margin: 0;
+            padding: 0;
+        }
         body {
             background-color: aliceblue;
+        }
+
+        #Oppdater {
+            font-size: 17px;
+            margin-left: 45vw;
+            cursor: pointer;
         }
 
         table {
