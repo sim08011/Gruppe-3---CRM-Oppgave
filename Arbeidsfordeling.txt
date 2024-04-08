@@ -1,0 +1,5 @@
+Simon – Databasemodell, Login-system, Hoved-SQL-fil og legge til kontaktpersoner.​
+
+Sondre T – Webhotel, Visning av kontaktpersoner, legge til kontaktpersoner og kunder. ​
+
+Teodor – Hovedsiden, multimerking, sletting og redigering av kontaktpersoner og kunder.
