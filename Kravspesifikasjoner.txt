@@ -1,7 +1,13 @@
-Kravspesifikasjoner:
-    - C  Create ( Legg til knapp Read side )
-    - R  Read   ( Både kunde og kontaktpersoner blir printet ut )
-    - U  Update ( Blyant på siden av brukerene for å redigere )
-    - D  Delete ( Søpplekasse på siden av brukerene for å slette )
-    - Logging ( Alle funksjoner kan bli brukt uten å logge inn, utenom redigering )
-    - Oversiktelig søk over kundene på siden samt kontaktpersoner
+C:  Create ( Legg-til-knapp for kontaktpersoner og kunder )​
+
+R : Read   ( Både kunder og kontaktpersoner blir skrevet ut )​
+
+U : Update ( Egen rediger-knapp for kontaktpersoner og  kunder )​
+
+D : Delete ( Slett-knapp for å slette kontaktpersoner og kunder)​
+
+​
+
+Login-system ( Det er mulig å lese av kontaktperson- og kundeinformasjon fra siden uten å logge inn, men man må logge inn som administrator for å slette, redigere og legge til informasjon)​
+
+Mulighet for å markere flere kunder/kontaktpersoner for å gjøre handlinger på flere samtidig.
