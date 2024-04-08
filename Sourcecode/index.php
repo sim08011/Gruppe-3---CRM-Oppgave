@@ -73,6 +73,8 @@
                     td.classList.remove('markedColor');
                     td.style.backgroundColor = '';
                 });
+
+                updateButtonVisibility();
             }
         }
 
