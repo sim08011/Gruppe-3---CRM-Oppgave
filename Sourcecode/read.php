@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bitnami.css">
-    <title>Kontaktperson</title>
+    <title>Kontaktpersoner</title>
 </head>
 <body>
 <?php
@@ -17,9 +17,9 @@
     <main>
     <div id="buttonOgTable-container">
             <button type="button" name="toggleButton" id="toggleButton">Merk</button> <!-- Knapp for å merkere -->
-            <button id="LeggtilKnapp">Legg til</button> <!-- Knapp for å Legge til bedrift -->
-            <button id="Redigerknapp">Rediger</button> <!-- Knapp for å redigere -->
-            <button id="SlettKnapp">Slett</button> <!-- Knapp for å slette -->
+            <button id="addButton">Legg til</button> <!-- Knapp for å Legge til bedrift -->
+            <button id="editButton">Rediger</button> <!-- Knapp for å redigere -->
+            <button id="deleteButton">Slett</button> <!-- Knapp for å slette -->
 <?php
     echo "<table>";
     if ($result = $mysqli->query("SELECT kontaktperson.*, kunde.navn AS kunde_navn FROM kontaktperson INNER JOIN kunde ON kontaktperson.kundeID = kunde.kundeID WHERE kontaktperson.kundeID = $ID")) {
@@ -75,8 +75,8 @@ document.addEventListener('DOMContentLoaded', function() {
     tds.forEach(function(td) { // For hver td
         td.addEventListener('click', function() { // Funksjon for når du klikker på en kunde
             if (markMode) { // Sjekker om du har klikket på merk knapp
-                document.getElementById("Redigerknapp").style.display = "inline"; //Endrer synligheten for Rediger knapp
-                document.getElementById("SlettKnapp").style.display = "inline"; //Endrer synligheten for Rediger knapp
+                document.getElementById("editButton").style.display = "inline"; //Endrer synligheten for Rediger knapp
+                document.getElementById("deleteButton").style.display = "inline"; //Endrer synligheten for Rediger knapp
 
                 if (td.classList.contains('markedColor')) { //Hvis td har fargen som er markerings farge
                     td.classList.remove('markedColor'); //Fjerner fargen på td
@@ -101,19 +101,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    document.getElementById('Redigerknapp').addEventListener('click', function() {
+    document.getElementById('editButton').addEventListener('click', function() {
     // Lager en url med alle kundeID som ligger i array
     var url = 'editContact.php?kontaktIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs)) + '&ID=' + encodeURIComponent(<?php echo $ID; ?>);
     // Sender deg til riktig sted med urlen
     window.location.href = url;
 });
-    document.getElementById('SlettKnapp').addEventListener('click', function() {
+    document.getElementById('deleteButton').addEventListener('click', function() {
     // Construct the URL with both IDs
     var url = 'deleteContact.php?kontaktIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs)) + '&ID=' + encodeURIComponent(<?php echo $ID; ?>);
     // Redirect to the appropriate URL
     window.location.href = url;
 });
-document.getElementById('LeggtilKnapp').addEventListener('click', function() {
+document.getElementById('addButton').addEventListener('click', function() {
     // Construct the URL with both IDs
     var url = 'addContact.php?ID=' + encodeURIComponent(<?php echo $ID; ?>);
     // Redirect to the appropriate URL
@@ -126,8 +126,8 @@ document.getElementById('LeggtilKnapp').addEventListener('click', function() {
             this.textContent = 'Avbryt'; // Hvis du har klikket på teksten endre knapp tekst til avbryt
         } else {
             this.textContent = 'Merk'; // Endre den til Merk hvis du avbryter
-            document.getElementById("Redigerknapp").style.display="none"; //Skjuler Rediger knapp hvis du avbryter
-            document.getElementById("SlettKnapp").style.display="none";
+            document.getElementById("editButton").style.display="none"; //Skjuler Rediger knapp hvis du avbryter
+            document.getElementById("deleteButton").style.display="none";
             // Resetter alle markerte td
             tds.forEach(function(td) {
                 td.classList.remove('markedColor');
@@ -189,20 +189,20 @@ document.getElementById('LeggtilKnapp').addEventListener('click', function() {
             margin-top: 3%;
         }
 
-        #LeggtilKnapp{
+        #addButton{
             width: 6%;
             background-color: #57B35E;
             color: white;
         }
 
-        #Redigerknapp {
+        #editButton {
             width: 6%;
             background-color: #3262ab;
             color: white;
             display: none;
         }
 
-        #SlettKnapp {
+        #deleteButton {
             width: 6%;
             background-color: #BD0000;
             color: white;

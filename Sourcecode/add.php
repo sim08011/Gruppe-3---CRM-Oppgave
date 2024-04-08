@@ -1,4 +1,9 @@
-
+<?php
+// Inkluderer nødvendige filer
+include 'nav.php'; // Inkluderer navigasjonsmenyen
+include 'authenticate.php'; // Inkluderer autentiseringssjekk
+include 'connection.php'; // Inkluderer tilkobling til databasen
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,16 +11,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bitnami.css">
-    <title>CRM Database</title>
+    <title>Legg til</title>
 </head>
 
 <body>
     <br><br><br><br><br><br>
-    <?php
-    include 'nav.php';
-    include 'authenticate.php';
-    include 'connection.php'
-        ?>
     <main>
 
         <form action="add.php" method="post">
@@ -24,10 +24,10 @@
             <label for="epost">Epost:</label><br>
             <input type="email" id="epost" name="epost" required maxlength="100"><br>
             <label for="tlf">Telefonnummer:</label><br>
-            <input type="tel" id="tlf" name="tlf" required minlength="8" required maxlength="12" ><br>
+            <input type="tel" id="tlf" name="tlf" required minlength="8" required maxlength="12"><br>
             <label for="postnummer">Postnummer:</label><br>
             <input type="text" id="postnummer" name="postnummer" required maxlength="4"><br>
-            <input type="submit" value="Legg til">
+            <input type="submit" value="Legg til"> <!-- Send-knapp -->
             <input type="reset" value="Reset">
             <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -35,28 +35,31 @@
                 $email = $_POST['epost'];
                 $phone = $_POST['tlf'];
                 $postal = $_POST['postnummer'];
-                // Ser kom postnummret som blir lagdt til allerede finnes i databasen
-                $stmt = $mysqli->prepare("SELECT postnummer FROM postnummer Where postnummer = ?");
+                
+                // Sjekker om postnummeret allerede finnes i databasen
+                $stmt = $mysqli->prepare("SELECT postnummer FROM postnummer WHERE postnummer = ?");
                 $stmt->bind_param("s", $_POST["postnummer"]);
                 $stmt->execute();
                 $exists = $stmt->fetch();
                 $stmt->close();
 
                 if (!$exists) {
-                    // Vis postnummret ikke fines:
-                    echo "Veligst oppgi et gyldig postnummer";
+                    // Hvis postnummeret ikke finnes
+                    echo "Vennligst oppgi et gyldig postnummer";
                 } elseif (isset($name) && isset($email) && isset($phone) && isset($postal)) {
-                    // Putter verdiene inn i databasen
+                    // Setter inn verdiene i databasen
                     $sql = "INSERT INTO kunde (navn, epost, tlf, postnummer)
                     VALUES ('$name', '$email', '$phone', '$postal')";
+                    // Utfører SQL-spørringen
                     if ($mysqli->query($sql) === TRUE) {
-                        echo "Bedrift lagt til";
+                        echo "Bedrift lagt til"; // Melding om vellykket tillegg
+                        // Oppdaterer siden etter 2 sekunder for å vise endringene
                         header("refresh:2; url=index.php");
                     } else {
-                        echo "Error: " . $sql . "<br>" . $mysqli->error;
+                        echo "Error: " . $sql . "<br>" . $mysqli->error; // Feilmelding hvis spørringen mislykkes
                     }
                 } else {
-                    echo "Et eller flere felt mangler";
+                    echo "Et eller flere felt mangler"; // Feilmelding hvis påkrevde felt mangler
                 }
             }
             ?>
@@ -64,20 +67,13 @@
     </main>
     <br><br>
     <?php
-    include 'footer.php'
-        ?>
+    include 'footer.php' // Inkluderer bunnteksten
+    ?>
 </body>
+
 </html>
 
 <style>
-    *{
-            margin: 0;
-            padding: 0;
-        }
-    body {
-        background-color: aliceblue;
-    }
-
     main {
         display: flex;
         justify-content: center;
@@ -85,21 +81,7 @@
         height: 100vh;
         margin: 0;
     }
-
-    form {
-        background-color: white;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        background-color: #FFF;
-        border: 1px solid #000;
-    }
-
-    label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
+    
     input[type="text"],
     input[type="email"],
     input[type="tel"] {

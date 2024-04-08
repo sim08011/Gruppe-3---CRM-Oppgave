@@ -1,15 +1,16 @@
 <?php
-        $ID = isset($_GET['ID']) ? $_GET['ID'] : null;
+    // Henter ID-parametern fra URL-en hvis den eksisterer, ellers settes den til null
+    $ID = isset($_GET['ID']) ? $_GET['ID'] : null;
 
-        // Check if the ID is not null and do further processing if needed
-        if($ID !== null) {
-            // Your code here
-            echo "The ID is: " . $ID;
-        } else {
-            echo "Missing ID parameter in the URL.";
-        }
-
+    // Sjekker om ID-en ikke er null og utfører videre behandling ved behov
+    if($ID !== null) {
+        // Din kode her
+        echo "ID-en er: " . $ID;
+    } else {
+        echo "Mangler ID-parameter i URL-en.";
+    }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,86 +22,79 @@
 <body>
     <br><br><br><br>
     <?php
-        include 'nav.php';
-        include 'connection.php';
-        include 'authenticate.php';
-        ?> <main> <?php
-        // Check if kundeIDs parameter is set in the URL
+        include 'nav.php'; // Inkluderer navigasjonsmenyen
+        include 'connection.php'; // Inkluderer databaseforbindelsen
+        include 'authenticate.php'; // Inkluderer autentiseringssjekken
+    ?>
+    <main>
+    <?php
+        // Sjekker om 'kundeIDs' parameteren er satt i URL-en
         if (isset($_GET['kundeIDs'])) {
-            // Decode the URL-encoded JSON string and convert it to a PHP array
+            // Dekoder den URL-kodede JSON-strengen og konverterer den til en PHP-array
             $selectedKundeIDs = json_decode($_GET['kundeIDs'], true);
 
+            // Starter et skjema for å oppdatere kundeinformasjon
             echo "<form method='post'>";
-            // Iterate over each kundeID
-            echo "<table class='bordered-table'>";
-            $counter = 0;
+            echo "<table class='bordered-table'>"; // Starter en tabell for å vise kundeinformasjon
+            $counter = 0; // Antall kunder per rad
             foreach ($selectedKundeIDs as $kundeID) {
-                // Prepare and execute the SQL query
+                // Forbereder og utfører SQL-spørringen
                 $query = "SELECT kundeID, navn, postnummer, tlf, epost, nettsted FROM kunde WHERE kundeID='$kundeID'";
                 $result = $mysqli->query($query);
                 while ($row = $result->fetch_assoc()) { 
-                    if ($counter % 3 == 0 && $counter != 0) {
+                    if ($counter % 3 == 0 && $counter != 0) { // Maks 3 kunder per rad
                         echo "</tr><tr>";
                     }
-                    echo "<td>";
+                    echo "<td>"; // Starter en celle for hver kunde
+                    // Viser informasjonen om kunden og lar brukeren redigere den
                     echo "<b>KundeID: </b>" . $row["kundeID"] . "<br>";
                     echo "<b>Navn: </b>" . "<input name='navn_$kundeID' required value='" . $row['navn'] . "'>" . "<br>";
                     echo "<b>Postnummer: </b>" . "<input name='postnr_$kundeID' required maxlength='4' value='" . $row['postnummer'] . "'>" . "<br>";
                     echo "<b>Telefon: </b>" . "<input name='tlf_$kundeID' required value='" . $row['tlf'] . "'>" . "<br>";
                     echo "<b>Epost: </b>" . "<input type='email' name='epost_$kundeID' required value='" . $row['epost'] . "'>" . "<br>";
                     echo "<b>Nettside: </b>" . "<input type='text' name='nettsted_$kundeID' value='" . $row['nettsted'] . "'>" . "<br>";
-                    echo "</td>";
-                    $counter++;
+                    echo "</td>"; // Avslutter cellen for kunden
+                    $counter++; // Øker telleren for antall kunder
                 }
             }
-            echo "</tr>"; // Avslutter rekke etter 5 bedrifter
-            echo "</table>"; // Avslutter table
-            }
+            echo "</tr>"; // Avslutter raden
+            echo "</table>"; // Avslutter tabellen
+            // Legger til en knapp for å oppdatere informasjonen
+            echo "<input id='Update' type='submit' name='Update' value='Oppdater'>";
+            echo "</form>"; // Avslutter skjemaet
 
-            // Submit button
-            echo "<input id='Oppdater' type='submit' name='Oppdater' value='Oppdater'>";
-            echo "</form>";
-
-            // Handle form submission
-            if (isset($_POST["Oppdater"])) {
+            // Håndterer skjemainnsendingen
+            if (isset($_POST["Update"])) {
                 foreach ($selectedKundeIDs as $kundeID) {
-                    // Retrieve updated values from the form
+                    // Henter oppdaterte verdier fra skjemaet
                     $navn = $_POST["navn_$kundeID"];
                     $postnr = $_POST["postnr_$kundeID"];
                     $tlf = $_POST["tlf_$kundeID"];
                     $epost = $_POST["epost_$kundeID"];
                     $nettsted = $_POST["nettsted_$kundeID"];
                     
-                    // Update kunde record in the database
+                    // Oppdaterer kundeinformasjonen i databasen
                     $updateQuery = "UPDATE kunde SET navn='$navn', postnummer='$postnr', tlf='$tlf', epost='$epost', nettsted='$nettsted' WHERE kundeID='$kundeID'";
-                    $mysqli->query($updateQuery);
-                    header("refresh:0.1; url=index.php");
+                    $mysqli->query($updateQuery); // Utfører spørringen
+                    header("refresh:0.1; url=index.php"); // Omlaster siden etter oppdatering
                 }
-
-                }
+            }
+        }
     ?>
     </main>
     <?php
-    include 'footer.php';
+        include 'footer.php'; // Inkluderer footeren
     ?>
 
     <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background-color: aliceblue;
-        }
-
-        #Oppdater {
+        #Update {
             font-size: 17px;
             margin-left: 45vw;
             cursor: pointer;
         }
 
         table {
-            font-size: 17px;;
+            font-size: 17px;
             margin-left: auto;
             margin-right: auto;
             margin-top: 1%;

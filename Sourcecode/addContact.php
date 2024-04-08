@@ -1,3 +1,12 @@
+<?php
+// Inkluderer nødvendige filer
+include 'nav.php'; // Inkluderer navigasjonsmenyen
+include 'connection.php'; // Inkluderer tilkobling til databasen
+include 'authenticate.php'; // Inkluderer autentiseringssjekk
+
+// Henter ID-en fra URL-parameteren
+$ID = isset($_GET['ID']) ? $_GET['ID'] : ''; // Setter $ID til $_GET['id'] hvis den eksisterer, ellers settes den til en tom streng
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,20 +14,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bitnami.css">
-    <title>CRM Database</title>
+    <title>Legg til kontaktperson</title>
 </head>
 
 <body>
-<br><br><br><br><br><br><br>
-    <?php
-    include 'nav.php';
-    include 'connection.php';
-    include 'authenticate.php';
-    $ID = isset($_GET['ID']) ? $_GET['ID'] : ''; // Set $ID to $_GET['id'] if it exists, otherwise set it to an empty string
-        ?>
+    <br><br><br><br><br><br><br>
     <main>
 
-    <form action="addContact.php?ID=<?php echo $ID; ?>" method="post">
+        <form action="addContact.php?ID=<?php echo $ID; ?>" method="post">
             <label for="fornavn">Fornavn: </label><br>
             <input type="text" name="fornavn" required maxlength="45" size="100"><br>
             <label for="etternavn">Etternavn: *</label><br>
@@ -28,10 +31,10 @@
             <label for="avdeling">Avdeling: *</label><br>
             <input type="text" name="avdeling" required maxlength="80"><br>
             <label for="tlf">Telefonnummer: *</label><br>
-            <input type="tel" name="tlf" required maxlength="12" ><br>
+            <input type="tel" name="tlf" required maxlength="12"><br>
             <label for="epost">Epost: *</label><br>
-            <input type="email" name="epost" required maxlength="100" ><br>
-            <input type="submit" value="Legg til">
+            <input type="email" name="epost" required maxlength="100"><br>
+            <input type="submit" value="Legg til"> <!-- Send-knapp -->
             <input type="reset" value="Reset">
             <?php
 
@@ -43,20 +46,22 @@
                 $phone = $_POST['tlf'];
                 $email = $_POST['epost'];
                 $kundeID = $ID;
-            
 
+                // Sjekker om alle påkrevde felt er satt
                 if (isset($firstName) && isset($sirName) && isset($position) && isset($department) && isset($phone) && isset($email)) {
+                    // SQL-spørring for å sette inn ny kontakt i databasen
                     $sql = "INSERT INTO kontaktperson (fornavn, etternavn, stilling, avdeling, tlf, epost, kundeID)
-                    VALUES ('$firstName', '$sirName', '$position', '$department', '$phone', '$email', '$kundeID')";                    
+                    VALUES ('$firstName', '$sirName', '$position', '$department', '$phone', '$email', '$kundeID')";
+                    // Utfører SQL-spørringen
                     if ($mysqli->query($sql) === TRUE) {
-                        echo "Kontaktperson lagt til";
-                        header("refresh:2; url=les.php?ID=$ID");
+                        echo "Kontaktperson lagt til"; // Melding om vellykket tillegg
+                        // Oppdaterer siden etter 2 sekunder for å vise endringene
+                        header("refresh:2; url=read.php?ID=$ID");
                     } else {
-                        echo "Error: " . $sql . "<br>" . $mysqli->error;
+                        echo "Error: " . $sql . "<br>" . $mysqli->error; // Feilmelding hvis spørringen mislykkes
                     }
-                } 
-                else {
-                    echo "Et eller flere felt mangler";
+                } else {
+                    echo "Et eller flere felt mangler"; // Feilmelding hvis påkrevde felt mangler
                 }
             }
             ?>
@@ -64,26 +69,21 @@
     </main>
     <br><br>
     <?php
-    include 'footer.php'
-        ?>
+    include 'footer.php' // Inkluderer bunnteksten
+    ?>
 </body>
+
+</html>
+</html>
 </html>
 
 <style>
-    *{
-            margin: 0;
-            padding: 0;
-        }
-    body {
-        background-color: aliceblue;
-    }
-
     main {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
     }
 
     form {

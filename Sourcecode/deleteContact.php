@@ -4,47 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slett</title>
-    </head>
+</head>
 <body>
     <?php
-        // Retrieve the ID from the URL parameter
+        // Henter ID-en fra URL-parameteren
         $ID = isset($_GET['ID']) ? $_GET['ID'] : null;
 
-        // Check if the ID is not null and do further processing if needed
+        // Sjekker om ID-en ikke er null og utfører videre behandling ved behov
         if($ID !== null) {
-            // Your code here
-            echo "The ID is: " . $ID;
+            echo "ID-en er: " . $ID;
         } else {
-            echo "Missing ID parameter in the URL.";
+            echo "Mangler ID-parameter i URL-en.";
         }
     ?>
     <?php
-    include 'nav.php';
-    include 'connection.php';
-    include 'authenticate.php';
+    include 'nav.php'; // Inkluderer navigasjonsmenyen
+    include 'connection.php'; // Inkluderer databaseforbindelsen
+    include 'authenticate.php'; // Inkluderer autentiseringssjekken
 
     if (isset($_GET['kontaktIDs'])) {
         $selectedkontaktIDs = json_decode($_GET['kontaktIDs'], true);
         foreach ($selectedkontaktIDs as $kontaktIDs) {
-            // Prepare the SQL query
+            // Forbereder SQL-spørringen for å slette kontaktpersoner
             $sql_kontaktpersoner = "DELETE FROM kontaktperson WHERE kontaktpersonID = '$kontaktIDs'";
 
-            $mysqli->query($sql_kontaktpersoner);
+            $mysqli->query($sql_kontaktpersoner); // Utfører spørringen for å slette kontaktpersonen
 
-            header("refresh:0.5; url=les.php?ID=" . $ID);
+            header("refresh:0.5; url=read.php?ID=" . $ID); // Omlaster siden etter 0.5 sekunder
         }
     }
     
     ?>
-
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background-color: aliceblue;
-        }
-    </style>
 </body>
 </html>

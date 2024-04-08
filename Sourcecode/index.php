@@ -9,63 +9,63 @@
 <body>
 <main>
     <?php
-        include 'nav.php';
-        include 'header.php';
-        include 'connection.php';
+        include 'nav.php'; // Inkluderer navigasjonsmenyen
+        include 'header.php'; // Inkluderer overskriften
+        include 'connection.php'; // Inkluderer databaseforbindelsen
         if(isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == true){
-            echo "<style>button{display: inline}</style>";
+            echo "<style>button{display: inline}</style>"; // Hvis brukeren er autentisert, vis knappene
         } else{
-            echo "<style>button{display: none}</style>";
+            echo "<style>button{display: none}</style>"; // Ellers skjul knappene
         }
     ?>
-    <div id="buttonOgTable-container">
-        <button type="button" name="toggleButton" id="toggleButton">Merk</button> <!-- Knapp for å merkere -->
-        <a href="add.php"><button id="LeggtilKnapp">Legg til</button></a> <!-- Knapp for å Legge til bedrift -->
-        <button id="Redigerknapp">Rediger</button> <!-- Knapp for å redigere -->
-        <button id="SlettKnapp">Slett</button> <!-- Knapp for å slette -->
+    <div id="buttonAndTable-Container">
+        <button type="button" name="toggleButton" id="toggleButton">Merk</button> <!-- Knapp for å merke -->
+        <a href="add.php"><button id="addButton">Legg til</button></a> <!-- Knapp for å legge til bedrift -->
+        <button id="editButton">Rediger</button> <!-- Knapp for å redigere -->
+        <button id="deleteButton">Slett</button> <!-- Knapp for å slette -->
         <?php
-            echo "<table class='bordered-table'>"; // Lager en ny table for alle bedriftene
+            echo "<table class='bordered-table'>"; // Oppretter en ny tabell for alle bedriftene
             $counter = 0; // Antall bedrifter på en linje
-            echo "<tr>"; // Starter en ny rekke 
+            echo "<tr>"; // Starter en ny rekke
             if ($result = $mysqli->query("SELECT kunde.*, postnummer.poststed AS poststed FROM kunde
                                     LEFT JOIN postnummer ON kunde.postnummer = postnummer.postnummer")) { // Henter all informasjon samt Postnummer og Poststed
-                while ($row = $result->fetch_assoc()) { 
+                while ($row = $result->fetch_assoc()) {
                     if ($counter % 5 == 0 && $counter != 0) { // Setter en maks grense på 5 for hver linje
                         echo "</tr><tr>"; // Starter en ny linje for hver femte bedrift
                     }
-                    $kundeID = $row['kundeID']; //Henter kundeID
-                    echo "<td class='td-link' data-kundeid='$kundeID'>"; //Lager en ny td for hver bedrift
-                    echo "<b>Navn:</b> ", $row["navn"] . "<br>"; //Printer ut navn
-                    echo "<b>Postnummer:</b> ", $row["postnummer"]. ", " . $row["poststed"] . "<br>"; // Printer ut poststed
-                    echo "<b>Epost:</b> ", $row["epost"] . "<br>"; // Printer ut epost
-                    echo "<b>Tlf:</b> ", $row["tlf"] . "<br>"; // Printer ut telefon nummer
+                    $kundeID = $row['kundeID']; // Henter kundeID
+                    echo "<td class='td-link' data-kundeid='$kundeID'>"; // Lager en ny td for hver bedrift
+                    echo "<b>Navn:</b> ", $row["navn"] . "<br>"; // Skriver ut navn
+                    echo "<b>Postnummer:</b> ", $row["postnummer"]. ", " . $row["poststed"] . "<br>"; // Skriver ut poststed
+                    echo "<b>Epost:</b> ", $row["epost"] . "<br>"; // Skriver ut epost
+                    echo "<b>Tlf:</b> ", $row["tlf"] . "<br>"; // Skriver ut telefonnummer
                     echo "</td>"; // Avslutter td for bedriften
                     $counter++; // Legger til 1 for hver bedrift
                 }
             }
             echo "</tr>"; // Avslutter rekke etter 5 bedrifter
-            echo "</table>"; // Avslutter table
+            echo "</table>"; // Avslutter tabellen
         ?>
     </div>
 </main>
 <script>
-    // JavaScript code to handle marking mode and button visibility
+    // JavaScript-kode for å håndtere merkingsmodus og knappevisning
     document.addEventListener('DOMContentLoaded', function() {
-        var markMode = false; // Variable to track marking mode
-        var selectedKundeIDs = []; // Array to store selected customer IDs
+        var markMode = false; // Variabel for å spore merkingsmodus
+        var selectedKundeIDs = []; // Array for å lagre valgte kunde-ID-er
 
-        // Function to toggle marking mode and update button visibility
+        // Funksjon for å bytte merkingsmodus og oppdatere knappevisning
         function toggleMarkMode() {
-            markMode = !markMode; // Toggle marking mode
+            markMode = !markMode; // Bytt merkingsmodus
 
-            // Update button text based on marking mode
+            // Oppdater knappetekst basert på merkingsmodus
             var toggleButton = document.getElementById('toggleButton');
             toggleButton.textContent = markMode ? 'Avbryt' : 'Merk';
 
-            // Update button visibility
+            // Oppdater knappevisning
             updateButtonVisibility();
-            
-            // Reset selected customer IDs and clear markings if marking mode is toggled off
+
+            // Tilbakestill valgte kunde-ID-er og fjern markeringer hvis merkingsmodus er slått av
             if (!markMode) {
                 selectedKundeIDs = [];
                 var tds = document.querySelectorAll('.td-link');
@@ -78,10 +78,10 @@
             }
         }
 
-        // Function to check if there are selected customer IDs and update button visibility
+        // Funksjon for å sjekke om det er valgte kunde-ID-er og oppdatere knappevisning
         function updateButtonVisibility() {
-            var redigerButton = document.getElementById('Redigerknapp');
-            var slettButton = document.getElementById('SlettKnapp');
+            var redigerButton = document.getElementById('editButton');
+            var slettButton = document.getElementById('deleteButton');
 
             if (selectedKundeIDs.length === 0) {
                 redigerButton.style.display = 'none';
@@ -92,15 +92,15 @@
             }
         }
 
-        // Event listener for "Merk" button to toggle marking mode
+        // Hendelseslytter for "Merk" -knappen for å bytte merkingsmodus
         document.getElementById('toggleButton').addEventListener('click', toggleMarkMode);
 
-        // Event listener for clicking on customer rows
+        // Hendelseslytter for å klikke på kunderekker
         var tds = document.querySelectorAll('.td-link');
         tds.forEach(function(td) {
             td.addEventListener('click', function() {
                 if (markMode) {
-                    // Toggle marking of customer row
+                    // Bytt merking av kunderekke
                     if (td.classList.contains('markedColor')) {
                         td.classList.remove('markedColor');
                         td.style.backgroundColor = '';
@@ -115,108 +115,107 @@
                         selectedKundeIDs.push(kundeID);
                     }
 
-                    // Log selected customer IDs
+                    // Logg valgte kunde-ID-er
                     console.log('Selected kundeIDs:', selectedKundeIDs);
 
-                    // Update button visibility after marking
+                    // Oppdater knappevisning etter merking
                     updateButtonVisibility();
                 } else {
-                    window.location.href = 'les.php?ID=' + td.getAttribute("data-kundeid");
+                    window.location.href = 'read.php?ID=' + td.getAttribute("data-kundeid");
                 }
             });
         });
 
-        // Event listener for "Rediger" button
-        document.getElementById('Redigerknapp').addEventListener('click', function() {
-            // Redirect to the appropriate URL with the selected customer IDs
+        // Hendelseslytter for "Rediger" -knappen
+        document.getElementById('editButton').addEventListener('click', function() {
+            // Videresend til riktig URL med de valgte kunde-ID-ene
             if (selectedKundeIDs.length === 0) {
                 alert('Ingen id valgt for redigering.');
             } else {
-                var url = 'rediger.php?kundeIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs));
+                var url = 'edit.php?kundeIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs));
                 window.location.href = url;
             }
         });
 
-        // Event listener for "Slett" button
-        document.getElementById('SlettKnapp').addEventListener('click', function() {
-            // Redirect to the appropriate URL with the selected customer IDs
+        // Hendelseslytter for "Slett" -knappen
+        document.getElementById('deleteButton').addEventListener('click', function() {
+            // Videresend til riktig URL med de valgte kunde-ID-ene
             if (selectedKundeIDs.length === 0) {
                 alert('Ingen id valgt for sletting.');
             } else {
-                var url = 'slett.php?kundeIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs));
+                var url = 'delete.php?kundeIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs));
                 window.location.href = url;
             }
         });
 
-        // Call the function to initially hide the buttons
+        // Kall funksjonen for å skjule knappene initialt
         updateButtonVisibility();
     });
 </script>
 
 </main>
 <?php
-    include 'footer.php';
+    include 'footer.php'; // Inkluderer bunnteksten
 ?>
 </body>
 </html>
 
 
-    <style>
-        body {
-            background-color: aliceblue;
-        }
+<style>
+    body {
+        background-color: aliceblue;
+    }
 
-        #buttonOgTable-container{
-            margin: auto;
-            max-width: 75%;
-        }
+    #buttonAndTable-Container {
+        margin: auto;
+        max-width: 75%;
+    }
 
-        #LeggtilKnapp{
-            width: 6%;
-            background-color: #57B35E;
-            color: white;
-        }
+    #addButton{
+        width: 6%;
+        background-color: #57B35E;
+        color: white;
+    }
 
-        #Redigerknapp {
-            width: 6%;
-            background-color: #3262ab;
-            color: white;
-            display: none;
-        }
+    #editButton {
+        width: 6%;
+        background-color: #3262ab;
+        color: white;
+        display: none;
+    }
 
-        #SlettKnapp {
-            width: 6%;
-            background-color: #BD0000;
-            color: white;
-            display: none;
-        }
+    #deleteButton {
+        width: 6%;
+        background-color: #BD0000;
+        color: white;
+        display: none;
+    }
 
-        #toggleButton{
-            width: 6%;
-            background-color: grey;
-            color: white;
+    #toggleButton {
+        width: 6%;
+        background-color: grey;
+        color: white;
+    }
 
-        }
+    button {
+        width: 6%;
+        cursor: pointer;
+    }
 
-        button{
-            width: 6%;
-            cursor: pointer;
-        }
+    table {
+        margin-top: 1%;
+        border-collapse: separate;
+        border-spacing: 10px;
+        border: 2px solid black;
+        background-color: white;
+        margin-bottom: 50px;
+    }
 
-        table {
-            margin-top: 1%;
-            border-collapse: separate;
-            border-spacing: 10px;
-            border: 2px solid black;
-            background-color: white;
-            margin-bottom: 50px;
-        }
-
-        td {
-            border: 2px solid black;
-            cursor: pointer;
-        }
-        a {
-            text-decoration: none;
-        }
-    </style>
+    td {
+        border: 2px solid black;
+        cursor: pointer;
+    }
+    a {
+        text-decoration: none;
+    }
+</style>

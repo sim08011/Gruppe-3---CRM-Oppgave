@@ -10,33 +10,32 @@
 
 <body>
     <?php
-    include 'nav.php';
-    include 'connection.php';
-
+    include 'nav.php'; // Inkluderer navigasjonsmenyen
+    include 'connection.php'; // Inkluderer databaseforbindelsen
 
     if(isset($_SESSION['authenticated']) && $_SESSION["authenticated"] == true){
         $_SESSION["authenticated"] = false;
-        header("Location: index.php");
+        header("Location: index.php"); // Hvis brukeren er autentisert, logg dem ut og send dem tilbake til startsiden
     }
     ?>
     <main>
 
         <form action="login.php" method="post">
-            <label for="brukernavn">Brukernavn:</label><br>
-            <input type="text" id="brukernavn" name="brukernavn" required maxlength="20" size="100"><br>
-            <label for="passord">Passord:</label><br>
-            <input type="password" id="passord" name="passord" required maxlength="100"><br>
+            <label for="username">Brukernavn:</label><br>
+            <input type="text" id="username" name="username" required maxlength="20" size="100"><br>
+            <label for="password">Passord:</label><br>
+            <input type="password" id="password" name="password" required maxlength="100"><br>
             <input type="submit" name="Login" value="Logg inn">
             <input type="reset" value="Reset">
 
             <?php
                 // Håndter innloggingsskjemaet
                 if (isset($_POST['Login'])) {
-                    $brukernavn = $_POST["brukernavn"];
-                    $passord = $_POST["passord"];
+                    $username = $_POST["username"];
+                    $password = $_POST["password"];
 
                     // Utfør en spørring for å finne brukeren i databasen
-                    $sql = "SELECT * FROM bruker WHERE brukernavn = '$brukernavn' AND passord = '$passord'";
+                    $sql = "SELECT * FROM bruker WHERE brukernavn = '$username' AND passord = '$password'";
                     $result = $mysqli->query($sql);
 
                     if ($result->num_rows == 1) {
@@ -54,7 +53,7 @@
     </main>
 
     <?php
-    include 'footer.php'
+    include 'footer.php' // Inkluderer bunnteksten
     ?>
 </body>
 </html>
