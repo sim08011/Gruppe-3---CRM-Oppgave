@@ -13,7 +13,8 @@
     include 'nav.php';
     include 'connection.php';
 
-    if($_SESSION["authenticated"] == true){
+
+    if(isset($_SESSION['authenticated']) && $_SESSION["authenticated"] == true){
         $_SESSION["authenticated"] = false;
         header("Location: index.php");
     }

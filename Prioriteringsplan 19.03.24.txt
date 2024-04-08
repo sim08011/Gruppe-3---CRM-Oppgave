@@ -6,7 +6,7 @@ Prioriteringsnivåer:
 3: Lavere prioritet. Ekstra funksjoner som kan legges til.
 
 - Les av kontakpersoninformasjon: 1 (Ferdig S.T)
-- Redigering av kontaktperson: 1 (Delevis T)
+- Redigering av kontaktperson: 1 (Delvis T)
 - Legge til kontaktperson: 1 ( Ferdig S.T og S.J)
 - Redigering av bedrift: 1 (Ferdig T)
 - Login-system: 2 (Ferdig S.J)
