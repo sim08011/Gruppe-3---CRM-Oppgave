@@ -49,11 +49,12 @@
     </div>
 </main>
 <script>
+    // JavaScript code to handle marking mode and button visibility
     document.addEventListener('DOMContentLoaded', function() {
         var markMode = false; // Variable to track marking mode
         var selectedKundeIDs = []; // Array to store selected customer IDs
 
-        // Function to toggle marking mode
+        // Function to toggle marking mode and update button visibility
         function toggleMarkMode() {
             markMode = !markMode; // Toggle marking mode
 
@@ -61,17 +62,9 @@
             var toggleButton = document.getElementById('toggleButton');
             toggleButton.textContent = markMode ? 'Avbryt' : 'Merk';
 
-            // Show or hide "Rediger" and "Slett" buttons based on marking mode and selected IDs
-            var redigerButton = document.getElementById('Redigerknapp');
-            var slettButton = document.getElementById('SlettKnapp');
-            if (markMode || selectedKundeIDs.length > 0) {
-                redigerButton.style.display = 'inline';
-                slettButton.style.display = 'inline';
-            } else {
-                redigerButton.style.display = 'none';
-                slettButton.style.display = 'none';
-            }
-
+            // Update button visibility
+            updateButtonVisibility();
+            
             // Reset selected customer IDs and clear markings if marking mode is toggled off
             if (!markMode) {
                 selectedKundeIDs = [];
@@ -80,6 +73,20 @@
                     td.classList.remove('markedColor');
                     td.style.backgroundColor = '';
                 });
+            }
+        }
+
+        // Function to check if there are selected customer IDs and update button visibility
+        function updateButtonVisibility() {
+            var redigerButton = document.getElementById('Redigerknapp');
+            var slettButton = document.getElementById('SlettKnapp');
+
+            if (selectedKundeIDs.length === 0) {
+                redigerButton.style.display = 'none';
+                slettButton.style.display = 'none';
+            } else {
+                redigerButton.style.display = 'inline';
+                slettButton.style.display = 'inline';
             }
         }
 
@@ -108,6 +115,9 @@
 
                     // Log selected customer IDs
                     console.log('Selected kundeIDs:', selectedKundeIDs);
+
+                    // Update button visibility after marking
+                    updateButtonVisibility();
                 } else {
                     window.location.href = 'les.php?ID=' + td.getAttribute("data-kundeid");
                 }
@@ -117,18 +127,30 @@
         // Event listener for "Rediger" button
         document.getElementById('Redigerknapp').addEventListener('click', function() {
             // Redirect to the appropriate URL with the selected customer IDs
-            var url = 'rediger.php?kundeIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs));
-            window.location.href = url;
+            if (selectedKundeIDs.length === 0) {
+                alert('Ingen id valgt for redigering.');
+            } else {
+                var url = 'rediger.php?kundeIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs));
+                window.location.href = url;
+            }
         });
 
         // Event listener for "Slett" button
         document.getElementById('SlettKnapp').addEventListener('click', function() {
             // Redirect to the appropriate URL with the selected customer IDs
-            var url = 'slett.php?kundeIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs));
-            window.location.href = url;
+            if (selectedKundeIDs.length === 0) {
+                alert('Ingen id valgt for sletting.');
+            } else {
+                var url = 'slett.php?kundeIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs));
+                window.location.href = url;
+            }
         });
+
+        // Call the function to initially hide the buttons
+        updateButtonVisibility();
     });
 </script>
+
 </main>
 <?php
     include 'footer.php';
