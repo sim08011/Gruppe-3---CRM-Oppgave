@@ -1,10 +1,4 @@
 <?php
-session_start();
-
-if($_SESSION["authenticated"] == false){
-    header("Location: index.php");
-}
-
         $ID = isset($_GET['ID']) ? $_GET['ID'] : null;
 
         // Check if the ID is not null and do further processing if needed
@@ -29,6 +23,7 @@ if($_SESSION["authenticated"] == false){
     <?php
         include 'nav.php';
         include 'connection.php';
+        include 'authenticate.php';
 
         // Check if kundeIDs parameter is set in the URL
         if (isset($_GET['kundeIDs'])) {
@@ -63,7 +58,7 @@ if($_SESSION["authenticated"] == false){
             }
 
             // Submit button
-            echo "<input type='submit' name='Oppdater' value='Oppdater'>";
+            echo "<input id='Oppdater' type='submit' name='Oppdater' value='Oppdater'>";
             echo "</form>";
 
             // Handle form submission
@@ -88,6 +83,12 @@ if($_SESSION["authenticated"] == false){
     <style>
         body {
             background-color: aliceblue;
+        }
+
+        #Oppdater {
+            font-size: 17px;
+            margin-left: 45vw;
+            cursor: pointer;
         }
 
         table {

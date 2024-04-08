@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bitnami.css">
-    <title>Document</title>
+    <title>Kontaktperson</title>
 </head>
 <body>
 <?php
@@ -177,6 +177,7 @@ document.getElementById('LeggtilKnapp').addEventListener('click', function() {
     #buttonOgTable-container{
             margin: auto;
             max-width: 75%;
+            margin-top: 3%;
         }
 
         #LeggtilKnapp{

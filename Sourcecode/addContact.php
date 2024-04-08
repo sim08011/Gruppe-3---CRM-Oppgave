@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    
+<br><br><br><br><br><br><br>
     <?php
     include 'nav.php';
     include 'connection.php';
@@ -62,6 +62,7 @@
             ?>
         </form>
     </main>
+    <br><br>
     <?php
     include 'footer.php'
         ?>
