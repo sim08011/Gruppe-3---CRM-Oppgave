@@ -28,6 +28,7 @@
             $kunde_navn = $rad["kunde_navn"]; // Store the value of kunde.navn
             $counter = 0;
             echo "<h1>$kunde_navn </h1>"; // Output the value of kunde.navn
+            echo "<h3>Kontaktpersoner</h3>";
             do {
                 if ($counter % 5 == 0) {    
                     echo "<tr>"; // Start a new row every five elements
@@ -169,6 +170,9 @@ document.getElementById('LeggtilKnapp').addEventListener('click', function() {
         
     }
     h1 {
+        text-align: center;
+    }
+    h3{
         text-align: center;
     }
     p {

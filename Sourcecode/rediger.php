@@ -24,7 +24,7 @@
         include 'nav.php';
         include 'connection.php';
         include 'authenticate.php';
-
+        ?> <main> <?php
         // Check if kundeIDs parameter is set in the URL
         if (isset($_GET['kundeIDs'])) {
             // Decode the URL-encoded JSON string and convert it to a PHP array
@@ -78,6 +78,10 @@
                 }
 
                 }
+    ?>
+    </main>
+    <?php
+    include 'footer.php';
     ?>
 
     <style>

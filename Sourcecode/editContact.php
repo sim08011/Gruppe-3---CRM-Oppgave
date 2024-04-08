@@ -24,7 +24,8 @@
         include 'nav.php';
         include 'connection.php';
         include 'authenticate.php';
-
+       ?> <main>
+        <?php
     if (isset($_GET['kontaktIDs'])) {
                 // Decode the URL-encoded JSON string and convert it to a PHP array
                 $selectedKontaktIDs = json_decode($_GET['kontaktIDs'], true);
@@ -78,6 +79,10 @@
                     }   
                 }
     ?>
+    </main>
+<?php
+    include 'footer.php';
+?>
 <style>
     *{
             margin: 0;

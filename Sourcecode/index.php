@@ -12,109 +12,122 @@
         include 'nav.php';
         include 'header.php';
         include 'connection.php';
-        if(isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == true){echo "<style>button{display: inline}</style>";} else{echo "<style>button{display: none}</style>";}
-        ?>
-        <div id="buttonOgTable-container">
-            <button type="button" name="toggleButton" id="toggleButton">Merk</button> <!-- Knapp for å merkere -->
-            <a href="add.php"><button id="LeggtilKnapp">Legg til</button></a> <!-- Knapp for å Legge til bedrift -->
-            <button id="Redigerknapp">Rediger</button> <!-- Knapp for å redigere -->
-            <button id="SlettKnapp">Slett</button> <!-- Knapp for å slette -->
+        if(isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == true){
+            echo "<style>button{display: inline}</style>";
+        } else{
+            echo "<style>button{display: none}</style>";
+        }
+    ?>
+    <div id="buttonOgTable-container">
+        <button type="button" name="toggleButton" id="toggleButton">Merk</button> <!-- Knapp for å merkere -->
+        <a href="add.php"><button id="LeggtilKnapp">Legg til</button></a> <!-- Knapp for å Legge til bedrift -->
+        <button id="Redigerknapp">Rediger</button> <!-- Knapp for å redigere -->
+        <button id="SlettKnapp">Slett</button> <!-- Knapp for å slette -->
         <?php
             echo "<table class='bordered-table'>"; // Lager en ny table for alle bedriftene
             $counter = 0; // Antall bedrifter på en linje
-    echo "<tr>"; // Starter en ny rekke 
-    if ($result = $mysqli->query("SELECT kunde.*, postnummer.poststed AS poststed FROM kunde
-                                LEFT JOIN postnummer ON kunde.postnummer = postnummer.postnummer")) { // Henter all informasjon samt Postnummer og Poststed
-        while ($row = $result->fetch_assoc()) { 
-            if ($counter % 5 == 0 && $counter != 0) { // Setter en maks grense på 5 for hver linje
-                echo "</tr><tr>"; // Starter en ny linje for hver femte bedrift
-            }
-            $kundeID = $row['kundeID']; //Henter kundeID
-            echo "<td class='td-link' data-kundeid='$kundeID'>"; //Lager en ny td for hver bedrift
-            echo "<b>Navn:</b> ", $row["navn"] . "<br>"; //Printer ut navn
-            echo "<b>Postnummer:</b> ", $row["postnummer"]. ", " . $row["poststed"] . "<br>"; // Printer ut poststed
-            echo "<b>Epost:</b> ", $row["epost"] . "<br>"; // Printer ut epost
-            echo "<b>Tlf:</b> ", $row["tlf"] . "<br>"; // Printer ut telefon nummer
-            echo "</td>"; // Avslutter td for bedriften
-            $counter++; // Legger til 1 for hver bedrift
-        }
-    }
-    echo "</tr>"; // Avslutter rekke etter 5 bedrifter
-    echo "</table>"; // Avslutter table
-?>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var markMode = false; // Lager en variabel for om markeringsmodus er på eller ikke
-    var selectedKundeIDs = []; // Array med idene til kundene som er markerte
-
-    var tds = document.querySelectorAll('.td-link'); //
-    tds.forEach(function(td) { // For hver td
-        td.addEventListener('click', function() { // Funksjon for når du klikker på en kunde
-            if (markMode) { // Sjekker om du har klikket på merk knapp
-                document.getElementById("Redigerknapp").style.display = "inline"; //Endrer synligheten for Rediger knapp
-                document.getElementById("SlettKnapp").style.display = "inline"; //Endrer synligheten for Rediger knapp
-
-                if (td.classList.contains('markedColor')) { //Hvis td har fargen som er markerings farge
-                    td.classList.remove('markedColor'); //Fjerner fargen på td
-                    td.style.backgroundColor = '';
-
-                    // Fjerner kundeID fra array 
-                    var kundeIDIndex = selectedKundeIDs.indexOf(td.getAttribute('data-kundeid'));
-                    if (kundeIDIndex !== -1) {
-                        selectedKundeIDs.splice(kundeIDIndex, 1);
+            echo "<tr>"; // Starter en ny rekke 
+            if ($result = $mysqli->query("SELECT kunde.*, postnummer.poststed AS poststed FROM kunde
+                                    LEFT JOIN postnummer ON kunde.postnummer = postnummer.postnummer")) { // Henter all informasjon samt Postnummer og Poststed
+                while ($row = $result->fetch_assoc()) { 
+                    if ($counter % 5 == 0 && $counter != 0) { // Setter en maks grense på 5 for hver linje
+                        echo "</tr><tr>"; // Starter en ny linje for hver femte bedrift
                     }
-                } else {
-                    td.classList.add('markedColor'); //Hvis den ikke er markert marker den
-                    td.style.backgroundColor = '#f0f8ff'; // Sett bakgrunns farge
-
-                    // Legg til kundeID i array
-                    var kundeID = td.getAttribute('data-kundeid');
-                    selectedKundeIDs.push(kundeID);
+                    $kundeID = $row['kundeID']; //Henter kundeID
+                    echo "<td class='td-link' data-kundeid='$kundeID'>"; //Lager en ny td for hver bedrift
+                    echo "<b>Navn:</b> ", $row["navn"] . "<br>"; //Printer ut navn
+                    echo "<b>Postnummer:</b> ", $row["postnummer"]. ", " . $row["poststed"] . "<br>"; // Printer ut poststed
+                    echo "<b>Epost:</b> ", $row["epost"] . "<br>"; // Printer ut epost
+                    echo "<b>Tlf:</b> ", $row["tlf"] . "<br>"; // Printer ut telefon nummer
+                    echo "</td>"; // Avslutter td for bedriften
+                    $counter++; // Legger til 1 for hver bedrift
                 }
-                console.log('Selected kundeIDs:', selectedKundeIDs); //Printer ut (Bare for å sjekke at det fungerer)
-            } else {
-                //Lager en ny url med kundeID slik at den printer ut riktig informasjon
-                window.location.href = 'les.php?ID=' + td.getAttribute("data-kundeid");
             }
+            echo "</tr>"; // Avslutter rekke etter 5 bedrifter
+            echo "</table>"; // Avslutter table
+        ?>
+    </div>
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var markMode = false; // Variable to track marking mode
+        var selectedKundeIDs = []; // Array to store selected customer IDs
+
+        // Function to toggle marking mode
+        function toggleMarkMode() {
+            markMode = !markMode; // Toggle marking mode
+
+            // Update button text based on marking mode
+            var toggleButton = document.getElementById('toggleButton');
+            toggleButton.textContent = markMode ? 'Avbryt' : 'Merk';
+
+            // Show or hide "Rediger" and "Slett" buttons based on marking mode and selected IDs
+            var redigerButton = document.getElementById('Redigerknapp');
+            var slettButton = document.getElementById('SlettKnapp');
+            if (markMode || selectedKundeIDs.length > 0) {
+                redigerButton.style.display = 'inline';
+                slettButton.style.display = 'inline';
+            } else {
+                redigerButton.style.display = 'none';
+                slettButton.style.display = 'none';
+            }
+
+            // Reset selected customer IDs and clear markings if marking mode is toggled off
+            if (!markMode) {
+                selectedKundeIDs = [];
+                var tds = document.querySelectorAll('.td-link');
+                tds.forEach(function(td) {
+                    td.classList.remove('markedColor');
+                    td.style.backgroundColor = '';
+                });
+            }
+        }
+
+        // Event listener for "Merk" button to toggle marking mode
+        document.getElementById('toggleButton').addEventListener('click', toggleMarkMode);
+
+        // Event listener for clicking on customer rows
+        var tds = document.querySelectorAll('.td-link');
+        tds.forEach(function(td) {
+            td.addEventListener('click', function() {
+                if (markMode) {
+                    // Toggle marking of customer row
+                    if (td.classList.contains('markedColor')) {
+                        td.classList.remove('markedColor');
+                        td.style.backgroundColor = '';
+                        var kundeIDIndex = selectedKundeIDs.indexOf(td.getAttribute('data-kundeid'));
+                        if (kundeIDIndex !== -1) {
+                            selectedKundeIDs.splice(kundeIDIndex, 1);
+                        }
+                    } else {
+                        td.classList.add('markedColor');
+                        td.style.backgroundColor = '#DBEEFF';
+                        var kundeID = td.getAttribute('data-kundeid');
+                        selectedKundeIDs.push(kundeID);
+                    }
+
+                    // Log selected customer IDs
+                    console.log('Selected kundeIDs:', selectedKundeIDs);
+                } else {
+                    window.location.href = 'les.php?ID=' + td.getAttribute("data-kundeid");
+                }
+            });
         });
 
+        // Event listener for "Rediger" button
+        document.getElementById('Redigerknapp').addEventListener('click', function() {
+            // Redirect to the appropriate URL with the selected customer IDs
+            var url = 'rediger.php?kundeIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs));
+            window.location.href = url;
+        });
+
+        // Event listener for "Slett" button
+        document.getElementById('SlettKnapp').addEventListener('click', function() {
+            // Redirect to the appropriate URL with the selected customer IDs
+            var url = 'slett.php?kundeIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs));
+            window.location.href = url;
+        });
     });
-
-
-    document.getElementById('Redigerknapp').addEventListener('click', function() {
-    // Lager en url med alle kundeID som ligger i array
-    var url = 'rediger.php?kundeIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs));
-    // Sender deg til riktig sted med urlen
-    window.location.href = url;
-});
-    document.getElementById('SlettKnapp').addEventListener('click', function() {
-    // Lager en url med alle kundeID som ligger i array
-    var url = 'slett.php?kundeIDs=' + encodeURIComponent(JSON.stringify(selectedKundeIDs));
-    // Sender deg til riktig sted med urlen
-    window.location.href = url;
-});
-
-
-    document.getElementById('toggleButton').addEventListener('click', function() {
-        markMode = !markMode; // Skrur på merkerings modus
-        if (markMode) {
-            this.textContent = 'Avbryt'; // Hvis du har klikket på teksten endre knapp tekst til avbryt
-        } else {
-            this.textContent = 'Merk'; // Endre den til Merk hvis du avbryter
-            document.getElementById("Redigerknapp").style.display="none"; //Skjuler Rediger knapp hvis du avbryter
-            document.getElementById("SlettKnapp").style.display="none";
-            // Resetter alle markerte td
-            tds.forEach(function(td) {
-                td.classList.remove('markedColor');
-                td.style.backgroundColor = ''; // Resetter fargen til tdene 
-            });
-            selectedKundeIDs = []; // Fjerner alle kundeID'er fra array
-        }
-    });
-});
-
 </script>
 </main>
 <?php
