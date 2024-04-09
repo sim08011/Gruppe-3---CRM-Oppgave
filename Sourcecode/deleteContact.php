@@ -30,10 +30,16 @@
 
             $mysqli->query($sql_kontaktpersoner); // Utfører spørringen for å slette kontaktpersonen
 
-            header("refresh:0.5; url=read.php?ID=" . $ID); // Omlaster siden etter 0.5 sekunder
+            header("refresh:0.1; url=read.php?ID=" . $ID); // Omlaster siden etter 0.5 sekunder
         }
     }
     
     ?>
 </body>
 </html>
+
+<style>
+        body {
+            background-color: aliceblue;
+        }
+</style>
